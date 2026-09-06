@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Deliverable_Weight__c</fullName>
+    <description>이 캠페인에 속한 모든 Campaign Deliverable(약속한 실행 항목)의 Weight 합계. Renewal_Campaign_Performance_Summary Flow가 이행률(fxDeliverableRate)을 계산할 때 분모로 사용합니다.</description>
+    <inlineHelpText>자동 계산 필드입니다. 하위 Campaign Deliverable 레코드의 Weight를 모두 더한 값입니다.</inlineHelpText>
+    <label>전체 이행 항목 가중치</label>
+    <summarizedField>Campaign_Deliverable__c.Weight__c</summarizedField>
+    <summaryForeignKey>Campaign_Deliverable__c.Campaign__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <type>Summary</type>
+</CustomField>

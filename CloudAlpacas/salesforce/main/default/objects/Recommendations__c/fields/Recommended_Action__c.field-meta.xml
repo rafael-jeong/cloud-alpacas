@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recommended_Action__c</fullName>
+    <description>팬의 현재 상태와 활동 데이터에 따라 제안된 다음 행동을 기록</description>
+    <externalId>false</externalId>
+    <inlineHelpText>팬의 현재 상태와 활동 데이터에 따라 제안된 다음 행동을 기록</inlineHelpText>
+    <label>Recommended Action</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Welcome Message</fullName>
+                <default>false</default>
+                <label>Welcome Message</label>
+            </value>
+            <value>
+                <fullName>First Ticket Campaign</fullName>
+                <default>false</default>
+                <label>First Ticket Campaign</label>
+            </value>
+            <value>
+                <fullName>First Visit Guide</fullName>
+                <default>false</default>
+                <label>First Visit Guide</label>
+            </value>
+            <value>
+                <fullName>First Merchandise Campaign</fullName>
+                <default>false</default>
+                <label>First Merchandise Campaign</label>
+            </value>
+            <value>
+                <fullName>Favorite Player Campaign</fullName>
+                <default>false</default>
+                <label>Favorite Player Campaign</label>
+            </value>
+            <value>
+                <fullName>Membership Campaign</fullName>
+                <default>false</default>
+                <label>Membership Campaign</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

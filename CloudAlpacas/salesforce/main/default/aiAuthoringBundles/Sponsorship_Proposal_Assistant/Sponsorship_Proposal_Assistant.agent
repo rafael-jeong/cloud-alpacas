@@ -1,0 +1,190 @@
+system:
+    instructions: |
+        당신은 Cloud Alpacas의 B2B PRM(스폰서십 영업) 담당자를 돕는 어시스턴트입니다.
+        하나의 Opportunity에 대한 Sponsorship Proposal(제안서) 작성만 담당합니다:
+        적합한 Sponsorship Package 추천, 제안서 초안(기대 효과) 작성, 그리고 사용자가
+        명시적으로 확인했을 때만 Quote로 저장하는 것까지입니다. 반드시 조회한 실제
+        데이터에 근거해서만 답하고, 가격이나 세그먼트 같은 수치·사실을 추측해서
+        만들어내지 마세요. 협상(Negotiation), Lead 발굴, 다른 Opportunity 전체 현황
+        같은 질문은 이 Agent의 담당 영역이 아니라고 안내하세요.
+    messages:
+        welcome: "안녕하세요! 스폰서십 제안서 작성을 도와드릴게요. 어떤 Opportunity의 제안서를 준비할까요?"
+        error: "죄송합니다, 요청을 처리하는 중 문제가 발생했습니다."
+
+config:
+    developer_name: "Sponsorship_Proposal_Assistant"
+    agent_label: "Sponsorship Proposal Assistant"
+    description: "Cloud Alpacas B2B PRM 담당자가 Opportunity의 Sponsorship Proposal(패키지 추천·제안서 초안·Quote 저장)을 작성하도록 돕는다. 향후 Opportunity Agent의 'Proposal / Quote' Topic으로 편입 예정 — 독립 개발/테스트 단계."
+    agent_type: "AgentforceEmployeeAgent"
+
+variables:
+    proposal_confirmed: mutable boolean = False
+        description: "사용자가 명시적으로 제안서 저장을 승인했는지 여부. save_proposal의 available when 게이트가 소비한다."
+    quote_id: mutable string = ""
+        description: "save_proposal 성공 시 생성된 Quote Id. 같은 대화에서 중복 저장을 막는 데 쓰인다."
+
+language:
+    default_locale: "ko"
+    additional_locales: ""
+    all_additional_locales: False
+
+start_agent proposal_quote:
+    label: "Proposal / Quote"
+    description: "Opportunity 하나에 대해 Sponsorship Package를 추천하고, 제안서 초안을 작성하고, 확인 후 Quote로 저장한다."
+
+    actions:
+        get_opportunity_context:
+            description: "Opportunity와, 그 Opportunity로 전환된 Lead가 있다면 그 Lead의 B2B 맥락 정보(Target Segment, Segment Match, Recommendation Reason, Lead Score)를 함께 조회한다."
+            label: "Get Opportunity Context"
+            target: "apex://OpportunityProposalContext"
+            include_in_progress_indicator: True
+            progress_indicator_message: "Opportunity 정보를 확인하는 중..."
+            inputs:
+                opportunityId: object
+                    complex_data_type_name: "lightning__recordIdType"
+                    description: "조회할 Opportunity의 Salesforce Id."
+                    label: "Opportunity Id"
+                    is_required: True
+            outputs:
+                opportunityName: string
+                    label: "Opportunity Name"
+                    description: "Opportunity 이름"
+                    filter_from_agent: False
+                targetSegment: string
+                    label: "Target Segment"
+                    description: "Opportunity에 기록된 타겟 세그먼트"
+                    filter_from_agent: False
+                partnerTier: string
+                    label: "Partner Tier"
+                    description: "Opportunity의 Partner Tier 값"
+                    filter_from_agent: False
+                existingShortTermBenefit: string
+                    label: "Existing Short-Term Benefit"
+                    description: "이미 작성된 단기 기대 효과 초안(있으면)"
+                    filter_from_agent: False
+                existingMidTermBenefit: string
+                    label: "Existing Mid-Term Benefit"
+                    description: "이미 작성된 중기 기대 효과 초안(있으면)"
+                    filter_from_agent: False
+                existingLongTermBenefit: string
+                    label: "Existing Long-Term Benefit"
+                    description: "이미 작성된 장기 기대 효과 초안(있으면)"
+                    filter_from_agent: False
+                hasConvertedLead: boolean
+                    label: "Has Converted Lead"
+                    description: "이 Opportunity로 전환된 Lead가 있는지 여부"
+                    filter_from_agent: False
+                leadTargetSegment: string
+                    label: "Lead Target Segment"
+                    description: "전환된 Lead의 Target Segment 값(Picklist)"
+                    filter_from_agent: False
+                leadSegmentMatch: number
+                    label: "Lead Segment Match"
+                    description: "전환된 Lead의 Segment Match(%, Agentforce Fit Score)"
+                    filter_from_agent: False
+                leadRecommendationReason: string
+                    label: "Lead Recommendation Reason"
+                    description: "전환된 Lead에 Agentforce가 기록한 추천 사유"
+                    filter_from_agent: False
+                leadScore: number
+                    label: "Lead Score"
+                    description: "전환된 Lead의 Lead Score(실제 계약 가능성)"
+                    filter_from_agent: False
+
+        list_sponsorship_packages:
+            description: "판매 가능한 Sponsorship Package(Product2) 목록과 Standard Price Book 가격을 조회한다."
+            label: "List Sponsorship Packages"
+            target: "apex://SponsorshipPackageLookup"
+            include_in_progress_indicator: True
+            progress_indicator_message: "Sponsorship Package 목록을 확인하는 중..."
+            outputs:
+                packages: list[object]
+                    label: "Sponsorship Packages"
+                    description: "Active Sponsorship Package 목록(Id, 이름, 코드, 가격)"
+                    complex_data_type_name: "@apexClassType/c__SponsorshipPackageLookup$PackageInfo"
+                    filter_from_agent: False
+
+        save_proposal:
+            description: "확인된 제안 내용을 Quote/QuoteLineItem으로 저장하고, 전달된 값이 있으면 Opportunity의 기대 효과/타겟 세그먼트 필드를 갱신한다."
+            label: "Save Proposal"
+            target: "apex://SponsorshipProposalSaver"
+            include_in_progress_indicator: True
+            progress_indicator_message: "제안서를 저장하는 중..."
+            inputs:
+                opportunityId: object
+                    complex_data_type_name: "lightning__recordIdType"
+                    description: "저장 대상 Opportunity의 Id"
+                    label: "Opportunity Id"
+                    is_required: True
+                productId: object
+                    complex_data_type_name: "lightning__recordIdType"
+                    description: "선택된 Sponsorship Package(Product2)의 Id"
+                    label: "Product Id"
+                    is_required: True
+                quoteName: string
+                    description: "생성할 Quote의 이름"
+                    label: "Quote Name"
+                    is_required: True
+                shortTermBenefit: string
+                    description: "단기 기대 효과 초안 내용"
+                    label: "Short-Term Benefit"
+                    is_required: False
+                midTermBenefit: string
+                    description: "중기 기대 효과 초안 내용"
+                    label: "Mid-Term Benefit"
+                    is_required: False
+                longTermBenefit: string
+                    description: "장기 기대 효과 초안 내용"
+                    label: "Long-Term Benefit"
+                    is_required: False
+                targetSegment: string
+                    description: "갱신할 타겟 세그먼트 값(비어있으면 Opportunity 값을 바꾸지 않음)"
+                    label: "Target Segment"
+                    is_required: False
+            outputs:
+                quoteId: object
+                    complex_data_type_name: "lightning__recordIdType"
+                    label: "Quote Id"
+                    description: "생성된 Quote의 Id"
+                    filter_from_agent: False
+                quoteName: string
+                    label: "Quote Name"
+                    description: "생성된 Quote의 이름"
+                    filter_from_agent: False
+                success: boolean
+                    label: "Success"
+                    description: "저장 성공 여부(내부 판단용)"
+                    filter_from_agent: True
+
+    reasoning:
+        instructions: ->
+            | 사용자가 Opportunity를 언급하면 {!@actions.get_opportunity_context}로 배경 정보를 먼저 확인하라 — 기존에 작성된 기대 효과 초안, 연결된 Lead의 Target Segment/Segment Match/Recommendation Reason이 있으면 반드시 참고하라.
+              사용자가 패키지 추천을 요청하면 {!@actions.list_sponsorship_packages}로 후보를 조회하고, Opportunity/Lead 맥락에 근거해 어떤 패키지가 적합한지 구체적인 이유와 함께 설명하라.
+              사용자가 제안서 초안을 요청하면 단기/중기/장기 기대 효과를 각각 작성해서 제시하라 — 반드시 조회로 얻은 실제 데이터(가격, 세그먼트, 추천 사유)에 근거하고, 숫자나 사실을 지어내지 마라.
+              사용자가 초안을 수정해달라고 하면 반영해서 다시 제시하라.
+
+            if @variables.quote_id != "":
+                | 이미 이 대화에서 Quote({!@variables.quote_id})가 생성되었다. 다시 저장을 요청받으면 이미 저장되었다고 안내하고, 새로 저장하려면 새 대화가 필요하다고 설명하라.
+            else:
+                | 사용자가 "이걸로 저장해줘", "확정해줘"처럼 **명확하게** 저장을 승인했을 때만 {!@actions.confirm_save}를 호출한 뒤 {!@actions.save_proposal}로 저장하라. "좋아 보인다", "괜찮네" 같은 애매한 반응만으로는 호출하지 마라.
+
+        actions:
+            get_opportunity_context: @actions.get_opportunity_context
+                with opportunityId = ...
+
+            list_sponsorship_packages: @actions.list_sponsorship_packages
+
+            confirm_save: @utils.setVariables
+                description: "사용자가 명확하게 제안서 저장을 승인했을 때만 호출한다"
+                set @variables.proposal_confirmed = True
+
+            save_proposal: @actions.save_proposal
+                with opportunityId = ...
+                with productId = ...
+                with quoteName = ...
+                with shortTermBenefit = ...
+                with midTermBenefit = ...
+                with longTermBenefit = ...
+                with targetSegment = ...
+                available when @variables.proposal_confirmed == True and @variables.quote_id == ""
+                set @variables.quote_id = @outputs.quoteId

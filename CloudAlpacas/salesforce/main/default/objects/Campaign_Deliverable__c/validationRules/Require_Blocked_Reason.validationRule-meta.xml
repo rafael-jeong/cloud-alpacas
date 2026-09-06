@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Blocked_Reason</fullName>
+    <active>true</active>
+    <description>Status를 Blocked로 바꾸거나 Due Date를 더 늦은 날짜로 연기하는 순간, 담당자가 이미 알고 있는 지연/중단 사유를 자연스럽게 기록하도록 강제합니다. 두 시점 모두 캠페인 실행 병목 원인 데이터를 축적하기 위한 지점입니다.</description>
+    <errorConditionFormula>OR(
+    AND(
+        ISPICKVAL(Status__c, &quot;Blocked&quot;),
+        ISBLANK(TEXT(Blocked_Reason__c))
+    ),
+    AND(
+        NOT(ISNEW()),
+        ISCHANGED(Due_Date__c),
+        NOT(ISBLANK(PRIORVALUE(Due_Date__c))),
+        Due_Date__c &gt; PRIORVALUE(Due_Date__c),
+        ISBLANK(TEXT(Blocked_Reason__c))
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Blocked_Reason__c</errorDisplayField>
+    <errorMessage>Status를 Blocked로 변경하거나 Due Date를 연기할 때는 Blocked Reason을 반드시 선택해야 합니다.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Played_Games__c</fullName>
+    <description>해당 시즌에 실제로 진행된 경기 수를 자동 집계(Status가 Played인 경기만 집계하며 팬의 시즌 관람률을 계산하는 분모로 사용)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>해당 시즌에 실제로 진행된 경기 수</inlineHelpText>
+    <label>Played Games</label>
+    <summaryFilterItems>
+        <field>Game__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Played</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Game__c.Season__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

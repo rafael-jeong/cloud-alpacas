@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Slack_Message__c</fullName>
+    <description>내부 자동화 전용. Before-Save Flow가 저장 시점의 정확한 값으로 완성된 메시지를 미리 담아두고, After-Save 비동기 Flow가 이 값을 그대로 Slack에 전송합니다.</description>
+    <inlineHelpText>자동화 전용 필드입니다. 직접 입력하지 마세요.</inlineHelpText>
+    <label>Pending Slack Message</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

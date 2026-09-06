@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to the related Case record. Used to link this Case Update staging record to its parent Case, mirroring ssot__CaseId__c on ssot__CaseUpdate__dlm.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the Case this update belongs to. Used to join CaseUpdate data to Case in Data Cloud.</inlineHelpText>
+    <label>Case</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>SD Analytics Case Updates</relationshipLabel>
+    <relationshipName>SD_Analytics_Case_Updates</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

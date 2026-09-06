@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fan__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Next Best Action을 추천받는 팬(Person Account)을 참조</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Next Best Action을 추천받는 팬(Person Account)을 참조</inlineHelpText>
+    <label>Fan</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Recommendations</relationshipLabel>
+    <relationshipName>Recommendations</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

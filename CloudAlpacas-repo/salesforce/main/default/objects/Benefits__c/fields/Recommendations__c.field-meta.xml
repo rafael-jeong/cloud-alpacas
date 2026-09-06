@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recommendations__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>해당 혜택을 발급하게 만든 추천 액션을 연결(추천 없이 직접 발급한 경우 비워둘 수 있음)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>해당 혜택을 발급하게 만든 추천 액션을 연결(추천 없이 직접 발급한 경우 비워둘 수 있음)</inlineHelpText>
+    <label>Recommendations</label>
+    <referenceTo>Recommendations__c</referenceTo>
+    <relationshipLabel>Benefits</relationshipLabel>
+    <relationshipName>Benefits</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,9 @@
+.dashboard { font-family: 'Pretendard', -apple-system, sans-serif; padding: 4px; }
+.dashboard-header { margin-bottom: 16px; }
+.dh-title { font-size: 22px; font-weight: 800; color: #111; }
+.dh-sub { font-size: 13px; color: #777; margin-top: 4px; }
+.dashboard-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.demo-notice { padding: 20px; background: #fff8f4; border: 1px solid #ffd9c4; border-radius: 10px; color: #b3541e; font-size: 13px; line-height: 1.6; text-align: center; margin-bottom: 12px; }
+@media (max-width: 900px) {
+  .dashboard-body { grid-template-columns: 1fr; }
+}

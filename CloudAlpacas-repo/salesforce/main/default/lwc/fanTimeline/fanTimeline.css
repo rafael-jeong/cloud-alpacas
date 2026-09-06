@@ -1,0 +1,11 @@
+.tl-list { display: flex; flex-direction: column; padding: 4px 8px; font-family: 'Pretendard', -apple-system, sans-serif; }
+.tl-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; flex-shrink: 0; width: 72px; text-align: center; }
+.badge--ticket { background: #fce8e6; color: #d93025; }
+.badge--goods { background: #e6f4ea; color: #1e8e3e; }
+.badge--visit { background: #e8f0fe; color: #1a73e8; }
+.badge--campaign { background: #fef3e2; color: #d9820a; }
+.badge--case { background: #f3e8fd; color: #8430ce; }
+.tl-title { flex: 1; font-size: 13px; color: #333; }
+.tl-date { font-size: 11px; color: #999; flex-shrink: 0; }
+.tl-empty, .tl-error { padding: 20px; color: #999; font-size: 13px; text-align: center; }

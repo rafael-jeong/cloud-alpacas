@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WorkItemId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Salesforce ID of the related Case. Populated by resolve_lookups.py at load time using Case External_ID__c. Maps to AgentWork DMO WorkItemId field.</description>
+    <externalId>false</externalId>
+    <label>Work Item ID</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipName>WorkItemId</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

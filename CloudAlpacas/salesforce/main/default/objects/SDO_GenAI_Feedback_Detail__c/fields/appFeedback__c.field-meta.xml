@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>appFeedback__c</fullName>
+    <description>Structured feedback payload (e.g. JSON of tags, rating buckets). Long Text Area on the CRM side so demo payloads can include realistic structured content; ingested as text to the DMO.</description>
+    <externalId>false</externalId>
+    <label>App Feedback</label>
+    <length>4000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>

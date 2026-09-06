@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Changed_Date__c</fullName>
+    <description>팬의 Current Segment가 변경된 날짜와 시간을 기록</description>
+    <externalId>false</externalId>
+    <inlineHelpText>팬의 Current Segment가 변경된 날짜와 시간을 기록</inlineHelpText>
+    <label>Changed Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

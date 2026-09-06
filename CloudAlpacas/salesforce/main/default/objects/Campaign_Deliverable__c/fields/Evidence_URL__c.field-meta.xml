@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Evidence_URL__c</fullName>
+    <description>사진·영상·외부 결과 링크</description>
+    <inlineHelpText>캠페인 세부 실행 건 완료를 증명할 수 있는 사진, 영상, 게시물 등의 링크를 붙여넣습니다.</inlineHelpText>
+    <label>Evidence URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

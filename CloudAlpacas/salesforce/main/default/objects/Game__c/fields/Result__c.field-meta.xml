@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Result__c</fullName>
+    <description>경기 결과</description>
+    <externalId>false</externalId>
+    <inlineHelpText>경기 결과 선택하기</inlineHelpText>
+    <label>Result</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Win</fullName>
+                <default>false</default>
+                <label>Win</label>
+            </value>
+            <value>
+                <fullName>Loss</fullName>
+                <default>false</default>
+                <label>Loss</label>
+            </value>
+            <value>
+                <fullName>Draw</fullName>
+                <default>false</default>
+                <label>Draw</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

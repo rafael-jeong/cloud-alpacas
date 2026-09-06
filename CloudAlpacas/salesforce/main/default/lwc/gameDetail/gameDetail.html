@@ -1,0 +1,40 @@
+<template>
+    <lightning-card>
+        <template if:true={hasData}>
+            <div class="game-detail">
+                <!-- 헤더 -->
+                <div class="gd-header">
+                    <div class="gd-title">{game.matchup}</div>
+                    <div class="gd-sub">{game.gameDate} · {game.stadium}</div>
+                </div>
+
+                <!-- 참석 팬 / 티켓 판매 -->
+                <div class="gd-stats">
+                    <div class="gd-stat">
+                        <div class="gd-stat-label">참석 팬</div>
+                        <div class="gd-stat-value">{game.expectedAttendance}</div>
+                    </div>
+                    <div class="gd-stat">
+                        <div class="gd-stat-label">티켓 판매</div>
+                        <div class="gd-stat-value gd-stat-value--accent">{game.ticketSales}</div>
+                    </div>
+                </div>
+
+                <!-- 좌석 현황 -->
+                <div class="gd-seat">
+                    <div class="gd-seat-top">
+                        <span class="gd-seat-label">좌석 현황</span>
+                        <span class="gd-seat-rate">{seatRateLabel}</span>
+                    </div>
+                    <div class="gd-seat-bar">
+                        <div class="gd-seat-fill" style={seatBarStyle}></div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="gd-error">경기 정보를 불러오지 못했습니다.</div>
+        </template>
+    </lightning-card>
+</template>

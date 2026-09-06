@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Goods_Purchases__c</fullName>
+    <description>해당 시즌 동안 팬이 구매한 굿즈 주문 건수를 집계</description>
+    <externalId>false</externalId>
+    <inlineHelpText>해당 시즌에 팬이 구매한 굿즈 주문 건수</inlineHelpText>
+    <label>Goods Purchases</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

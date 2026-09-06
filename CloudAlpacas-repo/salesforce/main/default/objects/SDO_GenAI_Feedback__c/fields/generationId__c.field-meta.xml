@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>generationId__c</fullName>
+    <description>Joins to SDO_Generated_Operation_Plan__c.Feedback_Identifier__c. Matches semantic model join Generated_Operation_Plan4.Feedback_Identifier = GenAIFeedback4.Generation_Id.</description>
+    <externalId>false</externalId>
+    <label>Generation Id</label>
+    <length>80</length>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

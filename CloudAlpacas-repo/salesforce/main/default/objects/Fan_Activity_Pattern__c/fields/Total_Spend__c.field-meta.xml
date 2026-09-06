@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Spend__c</fullName>
+    <description>해당 시즌에 팬이 지출한 총금액을 기록(환불 또는 취소된 주문은 집계에서 제외함)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>해당 시즌에 팬이 지출한 총금액을 기록(환불 또는 취소된 주문은 집계에서 제외함)</inlineHelpText>
+    <label>Total Spend</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

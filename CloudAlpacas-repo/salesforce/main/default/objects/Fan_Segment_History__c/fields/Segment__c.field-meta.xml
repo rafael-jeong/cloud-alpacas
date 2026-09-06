@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Segment__c</fullName>
+    <description>변경된 시점에 팬에게 적용된 Current Segment(Life Cycle)를 기록</description>
+    <externalId>false</externalId>
+    <inlineHelpText>변경된 시점에 팬에게 적용된 Current Segment(Life Cycle)를 기록</inlineHelpText>
+    <label>Segment</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Fan</fullName>
+                <default>false</default>
+                <label>New Fan</label>
+            </value>
+            <value>
+                <fullName>Active Fan</fullName>
+                <default>false</default>
+                <label>Active Fan</label>
+            </value>
+            <value>
+                <fullName>At-Risk Fan</fullName>
+                <default>false</default>
+                <label>At-Risk Fan</label>
+            </value>
+            <value>
+                <fullName>Dormant Fan</fullName>
+                <default>false</default>
+                <label>Dormant Fan</label>
+            </value>
+            <value>
+                <fullName>Churned Fan</fullName>
+                <default>false</default>
+                <label>Churned Fan</label>
+            </value>
+            <value>
+                <fullName>Unreachable Fan</fullName>
+                <default>false</default>
+                <label>Unreachable Fan</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

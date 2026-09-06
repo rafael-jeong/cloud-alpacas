@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>feedback__c</fullName>
+    <description>Sentiment value. Passthrough to GenAIFeedback__dlm.feedback__c. Enum values chosen to stay stable across locales so downstream visualizations do not drift.</description>
+    <externalId>false</externalId>
+    <label>Feedback</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>GOOD</fullName>
+                <default>true</default>
+                <label>GOOD</label>
+            </value>
+            <value>
+                <fullName>BAD</fullName>
+                <default>false</default>
+                <label>BAD</label>
+            </value>
+            <value>
+                <fullName>NEUTRAL</fullName>
+                <default>false</default>
+                <label>NEUTRAL</label>
+            </value>
+            <value>
+                <fullName>NEGATIVE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NEGATIVE</label>
+            </value>
+            <value>
+                <fullName>POSITIVE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>POSITIVE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

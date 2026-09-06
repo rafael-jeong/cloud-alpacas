@@ -1,0 +1,31 @@
+<template>
+    <lightning-card>
+        <div class="seg-panel">
+            <div class="seg-header">
+                <span class="seg-title">세그먼트 기회</span>
+                <span class="seg-title-en">Segment Opportunities</span>
+            </div>
+            <template for:each={segments} for:item="s">
+                <div key={s.id} class="seg-card">
+                    <div class="seg-card-top">
+                        <span class="seg-card-title">{s.title}</span>
+                        <span class="seg-card-count">{s.count}</span>
+                    </div>
+                    <div class="seg-tags">
+                        <span class="seg-tag">{s.trait1}</span>
+                        <span class="seg-tag">{s.trait2}</span>
+                    </div>
+                    <div class="seg-why"><strong>중요한 이유:</strong> {s.why}</div>
+                    <div class="seg-actions">
+                        <button class="seg-btn seg-btn--ghost" data-id={s.id} onclick={handleViewList}>
+                            대상 팬 보기
+                        </button>
+                        <button class="seg-btn seg-btn--primary" data-id={s.id} onclick={handleReview}>
+                            대표 팬 검토
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#4A154B</headerColor>
+        <logo>Slack_icon</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <defaultLandingTab>Slack_Admin</defaultLandingTab>
+    <description>Lists Salesforce users mapped to Slack and lets presenters jump into any persona via a Login As flow.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Slack</label>
+    <navType>Standard</navType>
+    <tabs>Slack_Admin</tabs>
+    <tabs>Game__c</tabs>
+    <tabs>Recommendations__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

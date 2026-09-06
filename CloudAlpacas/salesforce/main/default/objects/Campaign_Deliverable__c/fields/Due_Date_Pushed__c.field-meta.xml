@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Due_Date_Pushed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>내부 자동화 전용 플래그. Before-Save Flow가 Due Date가 이전 값보다 늦춰졌음을 감지하면 true로 설정하고, After-Save 비동기 Flow가 이를 보고 Slack 알림을 발송한 뒤 다시 false로 리셋합니다. 사용자가 직접 값을 입력하지 않습니다.</description>
+    <inlineHelpText>자동화 전용 필드입니다. 직접 체크/해제하지 마세요.</inlineHelpText>
+    <label>Due Date Pushed</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,58 @@
+<template>
+    <lightning-card>
+        <template if:true={hasData}>
+            <div class="fs">
+                <!-- 팬 건강도 -->
+                <div class="fs-health">
+                    <div class="fs-section-title">팬 건강도</div>
+                    <div class="fs-donut-wrap">
+                        <svg viewBox="0 0 100 100" class="fs-donut">
+                            <circle cx="50" cy="50" r="45" class="fs-donut-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="fs-donut-fg" style={donutStyle}></circle>
+                        </svg>
+                        <div class="fs-donut-center">
+                            <div class="fs-donut-score">{summary.engagementScore}</div>
+                            <div class="fs-donut-label">참여도</div>
+                        </div>
+                    </div>
+                    <div class="fs-level">{summary.engagementLevel}</div>
+                </div>
+
+                <!-- 고객 스냅샷 -->
+                <div class="fs-snapshot">
+                    <div class="fs-section-title">고객 스냅샷</div>
+                    <div class="fs-grid">
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">경기 관람 횟수</div>
+                            <div class="fs-cell-value">{summary.attendanceCount}경기</div>
+                        </div>
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">티켓 구매</div>
+                            <div class="fs-cell-value">누적 {summary.ticketPurchaseCount}건</div>
+                        </div>
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">온라인 굿즈 구매</div>
+                            <div class="fs-cell-value">{summary.onlineGoodsCount}건</div>
+                        </div>
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">구장 굿즈 구매</div>
+                            <div class="fs-cell-value">{summary.stadiumGoodsCount}건</div>
+                        </div>
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">멤버십</div>
+                            <div class="fs-cell-value">{summary.membershipStatus}</div>
+                        </div>
+                        <div class="fs-cell">
+                            <div class="fs-cell-label">LTV</div>
+                            <div class="fs-cell-value fs-cell-value--accent">{ltvFormatted}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="fs-error">요약 정보를 불러오지 못했습니다.</div>
+        </template>
+    </lightning-card>
+</template>

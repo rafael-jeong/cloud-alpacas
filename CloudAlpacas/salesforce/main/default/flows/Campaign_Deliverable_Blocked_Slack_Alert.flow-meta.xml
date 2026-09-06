@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Campaign_Blocked_Alert</name>
+        <label>Send Campaign Blocked Alert</label>
+        <locationX>264</locationX>
+        <locationY>400</locationY>
+        <actionName>SendMessageToSlackChannel</actionName>
+        <actionType>slackFlow</actionType>
+        <connector>
+            <targetReference>Clear_Pending_Message</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>channelId</name>
+            <value>
+                <stringValue>C0BT6V1AZAB</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>$Record.Pending_Slack_Message__c</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SendMessageToSlackChannel</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <description>Campaign_Deliverable_Detect_Due_Date_Push Before-Save Flow가 Pending_Slack_Message__c에 저장 시점의 정확한 값으로 메시지를 미리 완성해두면, 이 비동기 Flow는 그 필드를 그대로 읽어 #campaign-alerts로 전송합니다. 비동기 실행 시점에 레코드가 이미 다시 바뀌어 있어도(예: 곧바로 되돌려진 경우) 저장 당시의 정확한 내용이 보존됩니다. 발송 후 Pending_Slack_Message__c는 비워서 다음 알림도 다시 감지되도록 합니다.</description>
+    <environments>Default</environments>
+    <interviewLabel>Campaign Deliverable Blocked Slack Alert {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Campaign Deliverable Blocked Slack Alert</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Clear_Pending_Message</name>
+        <label>Clear Pending Message</label>
+        <locationX>264</locationX>
+        <locationY>520</locationY>
+        <inputAssignments>
+            <field>Pending_Slack_Message__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>176</locationX>
+        <locationY>160</locationY>
+        <doesRequireRecordChangedToMeetCriteria>false</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>1 and 2</filterLogic>
+        <filters>
+            <field>Pending_Slack_Message__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Pending_Slack_Message__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <object>Campaign_Deliverable__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>Send_Campaign_Blocked_Alert</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

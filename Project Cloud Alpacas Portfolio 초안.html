@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Alpacas Casebook</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans+KR:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root {
+    --paper: #f8f6f1;
+    --card: #ffffff;
+    --ink: #201d1a;
+    --ink-soft: #57524a;
+    --ink-faint: #8c8578;
+    --line: rgba(32,29,26,0.10);
+    --line-strong: rgba(32,29,26,0.22);
+    --accent: #3d4a8c;
+    --accent-ink: #2c366b;
+    --accent-soft: #e6e8f5;
+    --warm: #b5772e;
+    --warm-soft: #f7e9d6;
+    --good: #2f7a52;
+    --good-soft: #e2f1e8;
+    --shadow: 0 1px 2px rgba(30,25,15,0.05), 0 14px 32px -18px rgba(30,25,15,0.28);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16161a;
+      --card: #1e1e24;
+      --ink: #efece5;
+      --ink-soft: #c2bcae;
+      --ink-faint: #8a8478;
+      --line: rgba(239,236,229,0.12);
+      --line-strong: rgba(239,236,229,0.24);
+      --accent: #8b97e0;
+      --accent-ink: #b3bcf0;
+      --accent-soft: #262b4a;
+      --good: #7fd0a3;
+      --good-soft: #1b3527;
+      --warm: #e3ac67;
+      --warm-soft: #3a2c16;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 14px 32px -18px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #16161a; --card: #1e1e24; --ink: #efece5; --ink-soft: #c2bcae; --ink-faint: #8a8478;
+    --line: rgba(239,236,229,0.12); --line-strong: rgba(239,236,229,0.24);
+    --accent: #8b97e0; --accent-ink: #b3bcf0; --accent-soft: #262b4a;
+    --good: #7fd0a3; --good-soft: #1b3527; --warm: #e3ac67; --warm-soft: #3a2c16;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 14px 32px -18px rgba(0,0,0,0.6);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 16px; line-height: 1.75; -webkit-font-smoothing: antialiased;
+  }
+  .en { font-family: 'Fraunces', 'IBM Plex Sans KR', serif; font-optical-sizing: auto; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  h1,h2,h3 { text-wrap: balance; margin: 0; color: var(--ink); font-weight: 800; }
+  p { margin: 0; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 4px; height: 52px; overflow-x: auto; }
+  .topbar a { flex: none; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: var(--ink-soft); padding: 8px 10px; border-radius: 100px; white-space: nowrap; }
+  .topbar a.brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.95rem; color: var(--ink); margin-right: 8px; }
+  .topbar a:hover { background: var(--accent-soft); color: var(--accent-ink); }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+  .wide { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  header.hero { padding: 72px 0 56px; }
+  .eyebrow { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.02rem; color: var(--accent-ink); margin: 0 0 18px; }
+  header.hero h1 { font-size: clamp(1.9rem, 4.4vw, 2.85rem); line-height: 1.32; }
+  header.hero h1 em { font-style: normal; color: var(--accent-ink); }
+  .hero-sub { margin-top: 22px; font-size: 1.06rem; color: var(--ink-soft); max-width: 620px; }
+  .hero-meta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px 10px; font-size: 0.82rem; color: var(--ink-faint); }
+  .hero-meta span { padding: 5px 12px; border: 1px solid var(--line-strong); border-radius: 100px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 40px; box-shadow: var(--shadow); }
+  .stat-tile { background: var(--card); padding: 20px 16px; text-align: center; }
+  .stat-num { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.8rem; color: var(--accent-ink); }
+  .stat-label { font-size: 0.74rem; color: var(--ink-faint); margin-top: 6px; line-height: 1.4; }
+  @media (max-width: 640px) { .stat-row { grid-template-columns: repeat(2,1fr); } }
+
+  section { padding: 56px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+  .section-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--warm); font-weight: 600; margin: 0 0 10px; }
+  section h2 { font-size: clamp(1.4rem, 2.6vw, 1.75rem); }
+  .lede { margin-top: 16px; color: var(--ink-soft); max-width: 640px; }
+
+  .principle-track { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.9rem; color: var(--ink-soft); }
+  .principle-track .step { padding: 7px 13px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); font-weight: 600; }
+  .principle-track .arrow { color: var(--ink-faint); }
+
+  .case { padding: 44px 0; border-top: 1px solid var(--line); }
+  .case:first-of-type { border-top: none; padding-top: 8px; }
+  .case-num { font-family: 'Fraunces', serif; font-size: 0.95rem; color: var(--warm); font-weight: 600; }
+  .case h3 { font-size: 1.32rem; margin-top: 6px; }
+  .case-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: .03em; padding: 3px 10px; border-radius: 100px; background: var(--accent-soft); color: var(--accent-ink); margin-top: 10px; }
+  .case-grid { margin-top: 22px; display: grid; grid-template-columns: 92px 1fr; gap: 6px 18px; }
+  .case-grid dt { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .04em; padding-top: 3px; }
+  .case-grid dd { margin: 0; color: var(--ink); }
+  .case-grid dd + dt { margin-top: 14px; }
+  .result-box { margin-top: 20px; background: var(--good-soft); border-radius: 10px; padding: 14px 18px; font-size: 0.92rem; color: var(--ink); }
+  .result-box b { color: var(--good); }
+  .quote-line { margin-top: 16px; padding-left: 16px; border-left: 3px solid var(--warm); color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
+
+  .skill-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+  @media (max-width: 640px) { .skill-grid { grid-template-columns: 1fr; } }
+  .skill-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .skill-card h4 { margin: 0 0 8px; font-size: 0.98rem; color: var(--accent-ink); }
+  .skill-card ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.8; }
+
+  .closing { background: var(--accent); color: #f4f4fb; border-radius: 20px; padding: 48px 40px; margin: 8px 0 0; }
+  .closing h2 { color: #fff; }
+  .closing p { color: rgba(244,244,251,0.86); margin-top: 14px; max-width: 600px; }
+  .closing .contact { margin-top: 26px; font-size: 0.9rem; color: rgba(244,244,251,0.7); }
+  @media (max-width: 640px) { .closing { padding: 36px 22px; } }
+
+  footer.page-footer { padding: 30px 0 56px; color: var(--ink-faint); font-size: 0.78rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Casebook</a>
+    <a href="#context">프로젝트</a>
+    <a href="#cases">케이스 스터디</a>
+    <a href="#skills">역량</a>
+    <a href="#closing">Contact</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero" id="top">
+    <p class="eyebrow en">A Salesforce Project Casebook</p>
+    <h1>비즈니스 문제를 <em>Salesforce 솔루션</em>으로 설계하고,<br>직접 만들어 검증하는 사람</h1>
+    <p class="hero-sub">가상의 프로야구 구단 <b>Cloud Alpacas</b>를 무대로, 5인 팀 협업 프로젝트에서 B2B 스폰서십 세일즈 파이프라인(Product·Quote·Campaign)을 처음부터 끝까지 맡았습니다. 기능을 먼저 만들지 않고, 항상 "왜 필요한가"부터 시작했습니다.</p>
+    <div class="hero-meta">
+      <span>Salesforce Sales Cloud</span>
+      <span>Flow / Validation Rule / Agentforce</span>
+      <span>Product · Quote · Campaign End-to-End 오너</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat-tile"><div class="stat-num">13</div><div class="stat-label">스폰서십 패키지<br>가격·할인 정책 설계</div></div>
+      <div class="stat-tile"><div class="stat-num">107</div><div class="stat-label">Opportunity<br>Campaign 연결 정합성 확보</div></div>
+      <div class="stat-tile"><div class="stat-num">316</div><div class="stat-label">캠페인 실행 항목<br>이행 추적 데이터</div></div>
+      <div class="stat-tile"><div class="stat-num">6</div><div class="stat-label">지연 사유 카테고리<br>+ 실시간 Slack 알림</div></div>
+    </div>
+  </header>
+
+  <section id="context">
+    <p class="section-eyebrow en">Project Context</p>
+    <h2>왜 이 프로젝트인가</h2>
+    <p class="lede">Cloud Alpacas는 한화 이글스를 모델링한 가상의 프로야구 구단입니다. 저희 팀(Cellsforce)은 이 구단의 Fan Relationship Management 조직이 되어, Salesforce Customer 360을 실제 기업 프로젝트처럼 설계·구축했습니다. Phase 2에서는 팬 데이터를 활용해 새로운 스폰서·광고주를 발굴하는 B2B 확장이 시작됐고, 저는 이 흐름의 <b>상품(Product)·견적(Quote)·캠페인 실행(Campaign)</b> 영역을 전담했습니다.</p>
+    <p class="lede">이 프로젝트 전체가 지켜온 원칙은 하나였습니다 — Salesforce 기능을 먼저 떠올리지 않는 것.</p>
+    <div class="principle-track">
+      <span class="step">Business</span><span class="arrow">→</span>
+      <span class="step">Problem</span><span class="arrow">→</span>
+      <span class="step">Persona</span><span class="arrow">→</span>
+      <span class="step">Domain</span><span class="arrow">→</span>
+      <span class="step">Salesforce</span><span class="arrow">→</span>
+      <span class="step">Demo</span>
+    </div>
+    <p class="lede" style="margin-top:18px">아래 다섯 개 사례는 이 순서를 그대로 따라간 실제 작업입니다.</p>
+  </section>
+
+  <section id="cases">
+    <p class="section-eyebrow en">Case Studies</p>
+    <h2>다섯 개의 실전 사례</h2>
+
+    <div class="case">
+      <div class="case-num en">Case 01</div>
+      <h3>협상 가이드라인이 없다는 문제 — 정책을 데이터로 설계하다</h3>
+      <span class="case-tag">고객 니즈 파악 → 솔루션 제안</span>
+      <dl class="case-grid">
+        <dt>문제</dt><dd>영업 담당자가 스폰서사와 가격 협상(Negotiation) 중 "얼마까지 할인해도 되는지" 기준이 전혀 없었습니다. 상품(Product)은 있었지만 협상 정책은 어디에도 없었습니다.</dd>
+        <dt>접근</dt><dd>Price Book / Price Book Entry 구조를 검토해, 표준 필드가 아닌 <span class="mono">Max Discounted Price</span> / <span class="mono">Max Discount Percent</span> 커스텀 필드를 제안했습니다. "왜 Price Book Entry인가"부터 팀에 설명하고, 13개 스폰서십 패키지 각각에 현실적인 할인 한도를 직접 산정해 입력했습니다.</dd>
+        <dt>결과</dt><dd>협상 테이블에서 담당자가 즉시 참조할 수 있는 정책 데이터 13건 완성.</dd>
+      </dl>
+      <div class="result-box">고객이 말하지 않은 문제를 먼저 찾아 <b>"이렇게 풀면 어떨까요"</b>로 제안하는 과정 — Pre-Sales 컨설팅의 축소판입니다.</div>
+    </div>
+
+    <div class="case">
+      <div class="case-num en">Case 02</div>
+      <h3>AI로 견적 초안을 대신 만드는 Pre-Sales 어시스턴트</h3>
+      <span class="case-tag">AI 툴 활용 · Pre-Sales 데모</span>
+      <dl class="case-grid">
+        <dt>문제</dt><dd>담당자가 Opportunity마다 스폰서십 패키지를 수동으로 고르고 견적 초안을 처음부터 작성했습니다.</dd>
+        <dt>접근</dt><dd>Agentforce로 <b>Sponsorship Proposal Assistant</b>를 설계했습니다. Opportunity 맥락을 읽어 적합한 패키지를 추천하고, 담당자가 확정하기 전까지는 실제 레코드를 만들지 않도록(Create 액션은 반드시 사용자 확인 후에만 실행) 설계했습니다.</dd>
+        <dt>검증</dt><dd>Setup의 Live Preview에서 실제 Org 데이터로 대화 흐름을 직접 시연·검증했습니다.</dd>
+      </dl>
+      <div class="result-box">AI 도구를 실제 영업 워크플로우 안에 <b>안전장치와 함께</b> 붙이는 경험 — "AI 툴 활용"이 기능 자랑이 아니라 신뢰 설계의 문제라는 걸 배웠습니다.</div>
+    </div>
+
+    <div class="case">
+      <div class="case-num en">Case 03</div>
+      <h3>갱신 제안서를 위한 성과 요약 자동화</h3>
+      <span class="case-tag">계약 후 고객 관계 관리 · 제안서 작성</span>
+      <dl class="case-grid">
+        <dt>문제</dt><dd>스폰서사와 재계약(갱신)을 논의할 때마다 담당자가 그동안의 실행 성과를 수작업으로 취합해야 했습니다.</dd>
+        <dt>접근</dt><dd>Before-Save Flow로 같은 스폰서사의 이전 시즌 캠페인들을 순회해 이행률을 계산하고, 연결된 Opportunity의 파트너 등급을 판정해 <b>등급별 갱신 제안 문구</b>를 자동 생성하도록 설계했습니다.</dd>
+        <dt>검증</dt><dd>실제 시나리오(2년 연속 협업 스폰서)로 이행률·등급 판정까지 end-to-end 검증했습니다.</dd>
+      </dl>
+      <div class="result-box">담당자가 아니라 <b>데이터가 갱신을 제안</b>하게 만드는 구조 — Account 관리에서 "관계를 유지"하는 것과 "숫자로 설득"하는 것의 차이를 다뤘습니다.</div>
+    </div>
+
+    <div class="case">
+      <div class="case-num en">Case 04</div>
+      <h3>원인 불명의 플랫폼 버그 — 근본 원인을 좁혀가다</h3>
+      <span class="case-tag">기술 트러블슈팅 · IT 솔루션 이해도</span>
+      <dl class="case-grid">
+        <dt>문제</dt><dd>Metadata API로 배포한 신규 커스텀 필드가 배포 성공 응답을 받고도 몇 시간째 화면·SOQL 어디서도 조회되지 않았습니다.</dd>
+        <dt>접근</dt><dd>Setup Audit Trail로 시점을 역추적하고, 같은 필드를 <b>Setup UI로 직접 재생성</b>하는 통제된 A/B 테스트를 설계해 "API 배포"와 "UI 생성"의 차이만 남기고 나머지 변수를 통제했습니다.</dd>
+        <dt>결과</dt><dd>Metadata API 배포 필드의 스키마 전파 지연이라는 재현 가능한 플랫폼 특이사항을 밝혀내고, 팀 전체가 쓸 수 있는 표준 우회 절차로 문서화했습니다.</dd>
+      </dl>
+      <div class="result-box"><b>"왜 안 되는지" 고객에게 애매하게 넘기지 않고</b>, 직접 실험을 설계해 원인을 좁혀가는 과정 — Pre-Sales 상담에서 가장 자주 마주치는 상황입니다.</div>
+    </div>
+
+    <div class="case">
+      <div class="case-num en">Case 05</div>
+      <h3>병목 원인을 실시간으로 알리는 자동화</h3>
+      <span class="case-tag">Pipeline 관리 · 팀 플랫폼 제약 해결</span>
+      <dl class="case-grid">
+        <dt>문제</dt><dd>캠페인 실행이 지연돼도 팀 리더는 레코드를 직접 열어보기 전까진 알 방법이 없었습니다.</dd>
+        <dt>접근</dt><dd>담당자가 이미 상황을 파악한 그 순간(상태를 "지연"으로 바꾸거나 마감일을 미루는 순간)에 자연스럽게 사유를 남기도록 6종 카테고리 필드와 검증 규칙을 설계하고, Slack으로 실시간 발송하는 자동화를 구축했습니다. 그 과정에서 Salesforce Flow의 비동기 실행 제약 3가지(비동기 경로 필수, 이전 값 비교 제한, 비동기 시점 재조회로 인한 데이터 stale 이슈)를 차례로 발견해, Before-Save/After-Save를 분리하는 구조로 해결했습니다.</dd>
+        <dt>검증</dt><dd>6개 지연 사유 전체와 예외 케이스까지 실 데이터로 발송·확인.</dd>
+      </dl>
+      <div class="result-box">기능 하나를 완성하기까지 <b>세 번 막히고 세 번 재설계</b>했습니다 — 플랫폼의 제약을 이해하고 그 안에서 실용적인 답을 찾는 게 컨설팅의 실무라고 생각합니다.</div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="section-eyebrow en">Capabilities</p>
+    <h2>이 프로젝트로 보여드리고 싶은 것</h2>
+    <p class="lede">기능을 나열하기보다, 이 직무에서 실제로 쓰일 역량 단위로 정리했습니다.</p>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <h4>고객 니즈 파악 &amp; 솔루션 설계</h4>
+        <ul>
+          <li>표준 기능만으로 해결 안 되는 지점을 찾아내는 것</li>
+          <li>여러 대안을 비교하고 이유를 설명하는 것</li>
+          <li>Persona·Journey 기반으로 문제를 정의하는 것</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h4>Pre-Sales 데모 &amp; 검증</h4>
+        <ul>
+          <li>Agentforce Live Preview로 실 데이터 시연</li>
+          <li>멘토링 데모 시나리오·가이드 직접 작성</li>
+          <li>"확정 전 확인" 같은 안전장치를 설계에 반영</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h4>문서화 &amp; 커뮤니케이션</h4>
+        <ul>
+          <li>Jira 스타일 Backlog, Crow's Foot ERD 작성</li>
+          <li>의사결정 근거를 남기는 Decision Log 운영</li>
+          <li>기술 발견을 팀 전체가 이해할 수 있게 정리</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h4>Salesforce 실무 구축</h4>
+        <ul>
+          <li>Record-Triggered / Before-Save / 비동기 Flow</li>
+          <li>Validation Rule, Custom Object·Field 설계</li>
+          <li>Slack 외부 연동, Agentforce 에이전트 설계</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="closing" style="border-top:none;padding-top:0">
+    <div class="closing">
+      <p class="section-eyebrow en" style="color:rgba(244,244,251,0.65)">Closing Note</p>
+      <h2>기능이 아니라, 문제를 풀고 싶습니다</h2>
+      <p>이 프로젝트에서 가장 많이 반복한 질문은 "이게 왜 필요하지"였습니다. Salesforce를 잘 다루는 것과, Salesforce로 고객의 문제를 실제로 푸는 것은 다른 일이라는 걸 이 과정에서 배웠습니다. 비즈니스와 기술 사이에서 그 다리를 놓는 역할을 계속하고 싶습니다.</p>
+      <p class="contact">정승우 · wjdtmddn5390@gmail.com · 010-2303-5390</p>
+    </div>
+  </section>
+
+  <footer class="page-footer">Cloud Alpacas Casebook · Product · Quote · Campaign · 2026</footer>
+</div>
+
+</body>
+</html>

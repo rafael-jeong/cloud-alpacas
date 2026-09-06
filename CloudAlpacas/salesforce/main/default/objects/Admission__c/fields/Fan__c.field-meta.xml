@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fan__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>팬의 이름</description>
+    <externalId>false</externalId>
+    <inlineHelpText>팬의 이름</inlineHelpText>
+    <label>Fan</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Admissions</relationshipLabel>
+    <relationshipName>Admissions</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

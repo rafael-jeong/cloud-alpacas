@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Survey_Invitation_Id__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Lookup to shadow Invitation. Maps to ssot__SurveyParentId__c on ssot__SurveySubject__dlm.</description>
+    <externalId>false</externalId>
+    <label>Survey Invitation Id</label>
+    <referenceTo>SDO_Analytics_Survey_Invitation__c</referenceTo>
+    <relationshipName>SurveySubjectInvitationId</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

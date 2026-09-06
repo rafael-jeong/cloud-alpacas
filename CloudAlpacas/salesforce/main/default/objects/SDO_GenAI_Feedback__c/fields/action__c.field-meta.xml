@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>action__c</fullName>
+    <description>What the user did with the generation. Passthrough to GenAIFeedback__dlm.action__c.</description>
+    <externalId>false</externalId>
+    <label>Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SUBMIT</fullName>
+                <default>true</default>
+                <label>SUBMIT</label>
+            </value>
+            <value>
+                <fullName>DISMISS</fullName>
+                <default>false</default>
+                <label>DISMISS</label>
+            </value>
+            <value>
+                <fullName>REVISE</fullName>
+                <default>false</default>
+                <label>REVISE</label>
+            </value>
+            <value>
+                <fullName>ESCALATE</fullName>
+                <default>false</default>
+                <label>ESCALATE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

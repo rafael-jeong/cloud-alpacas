@@ -1,0 +1,12 @@
+.ra-list { display: flex; flex-direction: column; gap: 12px; padding: 4px 8px; font-family: 'Pretendard', -apple-system, sans-serif; }
+.ra-card { border: 1px solid #eee; border-radius: 10px; padding: 14px 16px; }
+.ra-top { margin-bottom: 8px; }
+.priority { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 9999px; }
+.priority--high { background: #fce8e6; color: #d93025; }
+.priority--medium { background: #fef3e2; color: #d9820a; }
+.priority--low { background: #eee; color: #666; }
+.ra-action { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 4px; }
+.ra-reason { font-size: 12px; color: #888; margin-bottom: 12px; line-height: 1.5; }
+.ra-btn { width: 100%; background: #FC4E00; color: #fff; border: none; border-radius: 8px; padding: 8px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.ra-btn:hover { background: #e34600; }
+.ra-empty, .ra-error { padding: 20px; color: #999; font-size: 13px; text-align: center; }

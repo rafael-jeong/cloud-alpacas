@@ -1,0 +1,28 @@
+{
+  "required" : [ "deliverableId", "mitigationPlan" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "createFollowUpTask" : {
+      "title" : "Create Follow Up Task",
+      "description" : "후속조치 Task도 생성할지 여부",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "deliverableId" : {
+      "title" : "Deliverable Id",
+      "description" : "get_bottlenecks 결과에서 선택한 항목의 Id",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "mitigationPlan" : {
+      "title" : "Mitigation Plan",
+      "description" : "사용자가 승인한 대책 내용",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Game__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>경기 정보</description>
+    <externalId>false</externalId>
+    <inlineHelpText>경기 정보</inlineHelpText>
+    <label>Game</label>
+    <referenceTo>Game__c</referenceTo>
+    <relationshipLabel>Admissions</relationshipLabel>
+    <relationshipName>Admissions</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

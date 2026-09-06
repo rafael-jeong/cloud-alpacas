@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Next Best Actions">
+        <template if:true={hasActions}>
+            <div class="ra-list">
+                <template for:each={actions} for:item="a">
+                    <div key={a.id} class="ra-card">
+                        <div class="ra-top">
+                            <span class={a.priorityClass}>우선순위 {a.priority}</span>
+                        </div>
+                        <div class="ra-action">{a.actionLabel}</div>
+                        <div class="ra-reason">{a.reason}</div>
+                        <button class="ra-btn" data-id={a.id} onclick={handleExecute}>조치 완료 처리</button>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:false={hasActions}>
+            <div class="ra-empty">현재 대기 중인 추천 액션이 없습니다.</div>
+        </template>
+
+        <template if:true={error}>
+            <div class="ra-error">추천 액션을 불러오지 못했습니다.</div>
+        </template>
+    </lightning-card>
+</template>

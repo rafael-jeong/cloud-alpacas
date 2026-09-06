@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Season__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>활동 패턴을 집계하고 분석할 시즌을 참조(팬별·시즌별로 하나의 활동 패턴을 관리)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>활동 패턴을 집계하고 분석할 시즌을 참조</inlineHelpText>
+    <label>Season</label>
+    <referenceTo>Season__c</referenceTo>
+    <relationshipLabel>Fan Activity Patterns</relationshipLabel>
+    <relationshipName>Fan_Activity_Patterns</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

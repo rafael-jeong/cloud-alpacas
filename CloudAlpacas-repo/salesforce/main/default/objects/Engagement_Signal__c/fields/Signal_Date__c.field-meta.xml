@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signal_Date__c</fullName>
+    <description>관심 신호가 발생한 날짜와 시간을 기록하는 필드(팬의 Engagement Signal 중 가장 최근 Signal Date를 Fan Profile 화면에서 &apos;최근 활동일&apos;로 보여줌.)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>관심 신호가 발생한 날짜와 시간을 기록하는 필드</inlineHelpText>
+    <label>Signal Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,176 @@
+:host {
+    --oac-navy: #0d1b3d;
+    --oac-orange: #ff6a00;
+    --oac-orange-hover: #e85f00;
+    --oac-orange-disabled: #f3c9ac;
+    --oac-light-blue: #f1f6ff;
+    --oac-light-blue-hover: #e6efff;
+    --oac-soft-orange: #fff4ed;
+    --oac-border: #e6ecf3;
+    --oac-text-secondary: #6b7280;
+    --oac-placeholder: #9ca3af;
+    --oac-font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+        'Noto Sans KR', 'Segoe UI', Roboto, sans-serif;
+
+    display: block;
+}
+
+.oac-widget,
+.oac-widget * {
+    box-sizing: border-box;
+}
+
+.oac-widget {
+    font-family: var(--oac-font);
+    background: #fff;
+    border: 1px solid var(--oac-border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---- header --------------------------------------------------- */
+
+.oac-widget__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.oac-mascot {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--oac-border);
+}
+
+.oac-mascot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+    display: block;
+}
+
+.oac-wordmark {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.oac-wordmark__primary {
+    color: var(--oac-navy);
+}
+
+.oac-wordmark__accent {
+    color: var(--oac-orange);
+}
+
+/* ---- composer ------------------------------------------------- */
+
+.oac-composer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.oac-composer__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 48px;
+    padding: 0 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--oac-navy);
+    background: #fff;
+    border: 1px solid var(--oac-border);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.oac-composer__input::placeholder {
+    color: var(--oac-placeholder);
+}
+
+.oac-composer__input:focus {
+    border-color: var(--oac-navy);
+    box-shadow: 0 0 0 3px rgba(13, 27, 61, 0.12);
+}
+
+.oac-send {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--oac-orange);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.oac-send:hover {
+    background: var(--oac-orange-hover);
+}
+
+.oac-send_off,
+.oac-send_off:hover {
+    background: var(--oac-orange-disabled);
+    cursor: not-allowed;
+}
+
+.oac-send:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}
+
+.oac-send svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+}
+
+/* ---- history link ------------------------------------------- */
+
+.oac-history {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--oac-navy);
+    background: var(--oac-light-blue);
+    border: 1px solid var(--oac-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.oac-history:hover {
+    background: var(--oac-light-blue-hover);
+}
+
+.oac-history:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}
+
+.oac-history__chev {
+    width: 14px;
+    height: 14px;
+    stroke: var(--oac-navy);
+    flex: 0 0 14px;
+}

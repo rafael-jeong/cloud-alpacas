@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_Discount_Percent__c</fullName>
+    <description>정가(UnitPrice) 대비 허용되는 최대 할인율입니다. 최소 할인가(Minimum_Price__c)를 퍼센트로 환산한 값과 같으며((UnitPrice - Minimum_Price__c) / UnitPrice), 담당자가 협상 중 퍼센트 단위로 빠르게 참고할 수 있도록 별도 필드로 둡니다.</description>
+    <inlineHelpText>정가 대비 이 비율까지만 할인 가능합니다(예: 10% = 정가의 10%까지 할인 허용).</inlineHelpText>
+    <label>최대 할인율</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

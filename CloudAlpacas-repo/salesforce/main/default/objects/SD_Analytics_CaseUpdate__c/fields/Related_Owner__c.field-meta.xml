@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_Owner__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to the User who owned the Case at the time of this update. Mirrors ssot__RelatedOwnerId__c on ssot__CaseUpdate__dlm.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Case owner at the time this status change was recorded.</inlineHelpText>
+    <label>Related Owner</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>SD Analytics Case Updates (Owner)</relationshipLabel>
+    <relationshipName>SD_Analytics_Case_Updates_Owner</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Fan Timeline">
+        <template if:true={hasData}>
+            <div class="tl-list">
+                <template for:each={timeline} for:item="t">
+                    <div key={t.title} class="tl-row">
+                        <span class={t.badgeClass}>{t.type}</span>
+                        <span class="tl-title">{t.title}</span>
+                        <span class="tl-date">{t.dateDisplay}</span>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:false={hasData}>
+            <div class="tl-empty">타임라인에 표시할 활동이 아직 없습니다.</div>
+        </template>
+
+        <template if:true={error}>
+            <div class="tl-error">타임라인을 불러오지 못했습니다.</div>
+        </template>
+    </lightning-card>
+</template>

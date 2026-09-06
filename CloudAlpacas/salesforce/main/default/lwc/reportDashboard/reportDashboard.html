@@ -1,0 +1,126 @@
+<template>
+    <template if:true={hasData}>
+        <div class="report-board">
+            <div class="rb-header">
+                <div class="rb-title">리포트 대시보드</div>
+                <div class="rb-sub">팬 데이터 기반 전환 성과 · Sales Cloud / Customer 360 데이터</div>
+            </div>
+
+            <!-- Row 1: 매출 카드 + 세그먼트 구성 + 퍼널 -->
+            <div class="rb-row rb-row--3col">
+                <!-- 1. 온라인 vs 구장 굿즈 구매 -->
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>온라인 vs 구장 굿즈 구매</div>
+
+                    <div class="revenue-block">
+                        <div class="revenue-label">{data.online.label}</div>
+                        <div class="revenue-sub">이번 달 예상 매출</div>
+                        <div class="revenue-amount">{data.online.amount}</div>
+                        <div class="revenue-meta">
+                            <span class={data.online.changeClass}>{data.online.arrow} {data.online.percent}%</span>
+                            <span class="revenue-last">{data.online.lastAmount}</span>
+                        </div>
+                    </div>
+
+                    <div class="revenue-block">
+                        <div class="revenue-label">{data.stadium.label}</div>
+                        <div class="revenue-sub">이번 달 예상 매출</div>
+                        <div class="revenue-amount">{data.stadium.amount}</div>
+                        <div class="revenue-meta">
+                            <span class={data.stadium.changeClass}>{data.stadium.arrow} {data.stadium.percent}%</span>
+                            <span class="revenue-last">{data.stadium.lastAmount}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. 팬 세그먼트 구성 -->
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>팬 세그먼트 구성</div>
+                    <div class="segment-total">{data.segmentTotal}<span class="segment-total-label">전체 팬</span></div>
+                    <div class="segment-list">
+                        <template for:each={data.segments} for:item="s">
+                            <div key={s.label} class="segment-row">
+                                <span class="segment-dot" style={s.dotStyle}></span>
+                                <span class="segment-name">{s.label}</span>
+                                <span class="segment-count">{s.count}명</span>
+                                <span class="segment-pct">{s.percent}%</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- 3. 팬 참여 / Campaign 전환 퍼널 -->
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>팬 참여 / Campaign 전환 퍼널</div>
+                    <div class="funnel-list">
+                        <template for:each={data.funnel} for:item="f">
+                            <div key={f.label} class="funnel-row">
+                                <div class="funnel-top">
+                                    <span class="funnel-label">{f.label}</span>
+                                    <span class="funnel-count">{f.count}</span>
+                                    <span class="funnel-pct">{f.percent}%</span>
+                                </div>
+                                <div class="funnel-bar"><div class="funnel-fill" style={f.barStyle}></div></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: 세그먼트별 전환율 + 캠페인별 성과 자리(생략) -->
+            <div class="rb-row rb-row--1col">
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>Segment별 전환율</div>
+                    <div class="tier-list">
+                        <template for:each={data.tierConversion} for:item="t">
+                            <div key={t.label} class="tier-row">
+                                <div class="tier-top">
+                                    <span class="tier-label">{t.label}</span>
+                                    <span class="tier-rate">{t.rate}%</span>
+                                </div>
+                                <div class="tier-bar"><div class="tier-fill" style={t.barStyle}></div></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: 관람→굿즈전환, 멤버십전환 -->
+            <div class="rb-row rb-row--2col">
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>관람 → 굿즈 구매 전환</div>
+                    <div class="conv-row">
+                        <span class="conv-label">{data.attendanceToGoods.fromLabel}</span>
+                        <span class="conv-value">{data.attendanceToGoods.fromCount}명</span>
+                    </div>
+                    <div class="conv-bar conv-bar--blue"><div class="conv-fill" style="width:100%;"></div></div>
+                    <div class="conv-row">
+                        <span class="conv-label">{data.attendanceToGoods.toLabel}</span>
+                        <span class="conv-value">{data.attendanceToGoods.toCount}명</span>
+                    </div>
+                    <div class="conv-bar conv-bar--green"><div class="conv-fill" style={data.attendanceBarStyle}></div></div>
+                    <div class="conv-rate">전환율 <strong>{data.attendanceToGoods.rate}%</strong></div>
+                </div>
+
+                <div class="rb-card">
+                    <div class="rb-card-title"><span class="rb-bar"></span>멤버십 전환</div>
+                    <div class="conv-row">
+                        <span class="conv-label">{data.visitToMembership.fromLabel}</span>
+                        <span class="conv-value">{data.visitToMembership.fromCount}명</span>
+                    </div>
+                    <div class="conv-bar conv-bar--blue"><div class="conv-fill" style="width:100%;"></div></div>
+                    <div class="conv-row">
+                        <span class="conv-label">{data.visitToMembership.toLabel}</span>
+                        <span class="conv-value">{data.visitToMembership.toCount}명</span>
+                    </div>
+                    <div class="conv-bar conv-bar--green"><div class="conv-fill" style={data.membershipBarStyle}></div></div>
+                    <div class="conv-rate">전환율 <strong>{data.visitToMembership.rate}%</strong></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={error}>
+        <div class="rb-error">리포트 데이터를 불러오지 못했습니다.</div>
+    </template>
+</template>

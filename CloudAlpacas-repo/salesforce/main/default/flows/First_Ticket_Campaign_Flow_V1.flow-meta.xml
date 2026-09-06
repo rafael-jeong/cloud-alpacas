@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <decisions>
+        <description>활성 상태의 First Ticket Campaign 레코드가 조회되었는지 확인</description>
+        <name>Check_If_First_Ticket_Campaign_Found</name>
+        <label>Check If First Ticket Campaign Found</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Campaign Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Campaign_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_First_Ticket_Campaign.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Fan_to_First_Ticket_Campaign</targetReference>
+            </connector>
+            <label>Campaign Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>가입 후 7일이 지난 팬의 결제 완료 티켓 구매 이력 존재 여부를 판단</description>
+        <name>Check_If_Ticket_Purchase_Exists</name>
+        <label>Check If Ticket Purchase Exists</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Paid Ticket Purchase Exists</defaultConnectorLabel>
+        <rules>
+            <name>No_Paid_Ticket_Purchase</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Paid_Ticket_Purchase.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_First_Ticket_Campaign</targetReference>
+            </connector>
+            <label>No Paid Ticket Purchase</label>
+        </rules>
+    </decisions>
+    <description>신규 Person Account 생성 7일 후 결제 완료된 티켓 구매 이력이 없는지 확인하고 First Ticket Campaign 대상 등록 및 안내 이력을 생성</description>
+    <environments>Default</environments>
+    <interviewLabel>First Ticket Campaign Flow - V1 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>First Ticket Campaign Flow -CA</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>티켓 구매 이력이 없는 신규 팬을 First Ticket Campaign의 Campaign Member로 등록</description>
+        <name>Add_Fan_to_First_Ticket_Campaign</name>
+        <label>Add Fan to First Ticket Campaign</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_First_Ticket_Campaign_Notification</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>CampaignId</field>
+            <value>
+                <elementReference>Get_First_Ticket_Campaign.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>$Record.PersonContactId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>CampaignMember</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>First Ticket Campaign 대상 팬에게 발송한 첫 관람 유도 안내 이력을 Notification Log에 생성</description>
+        <name>Create_First_Ticket_Campaign_Notification</name>
+        <label>Create First Ticket Campaign Notification</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Campaign__c</field>
+            <value>
+                <elementReference>Get_First_Ticket_Campaign.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Channel__c</field>
+            <value>
+                <stringValue>SMS</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Content__c</field>
+            <value>
+                <stringValue>첫 경기 관람 10% 할인 쿠폰이 도착했어요.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Notification_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>티켓 구매 이력이 없는 팬을 등록할 활성 First Ticket Campaign 레코드를 조회</description>
+        <name>Get_First_Ticket_Campaign</name>
+        <label>Get First Ticket Campaign</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_If_First_Ticket_Campaign_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>First Ticket Campaign</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Campaign</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>가입 후 7일이 지난 팬에게 결제 완료된 티켓 구매 이력이 있는지 조회</description>
+        <name>Get_Paid_Ticket_Purchase</name>
+        <label>Get Paid Ticket Purchase</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_If_Ticket_Purchase_Exists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Order_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Ticket Purchase</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Order</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>IsPersonAccount</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X7_Days_After_Fan_Registration</name>
+            <connector>
+                <targetReference>Get_Paid_Ticket_Purchase</targetReference>
+            </connector>
+            <label>7 Days After Fan Registration</label>
+            <offsetNumber>7</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>CreatedDate__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

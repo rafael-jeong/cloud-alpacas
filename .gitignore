@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Node
+node_modules/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/settings.json
+.vscode/
+
+# Logs
+*.log
+
+# Salesforce CLI local state
+.sf/
+.sfdx/
+
+# Parked nested git repos (old team repo history, kept locally only)
+.git.bak/
+**/.git.bak/

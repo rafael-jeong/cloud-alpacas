@@ -1,0 +1,584 @@
+:host {
+    --oac-navy: #0d1b3d;
+    --oac-orange: #ff6a00;
+    --oac-orange-hover: #e85f00;
+    --oac-orange-disabled: #f3c9ac;
+    --oac-light-blue: #f1f6ff;
+    --oac-light-blue-hover: #e6efff;
+    --oac-soft-orange: #fff4ed;
+    --oac-border: #e6ecf3;
+    --oac-border-strong: #c9d9ef;
+    --oac-text-secondary: #6b7280;
+    --oac-placeholder: #9ca3af;
+    --oac-badge-text: #3b5bdb;
+    --oac-font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+        'Noto Sans KR', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ---- shell -------------------------------------------------- */
+
+.oac-modal {
+    display: block;
+}
+
+.oac-modal__container {
+    width: 80vw;
+    max-width: 72rem;
+    min-width: 20rem;
+    height: 82vh;
+    max-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    font-family: var(--oac-font);
+    background: #fff;
+    border-radius: 16px;
+}
+
+.oac-modal__container * {
+    box-sizing: border-box;
+}
+
+/* ---- header ------------------------------------------------- */
+
+.oac-modal__header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--oac-navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.oac-modal__identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.oac-modal__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.oac-modal__oppname {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.82);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.oac-modal__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+}
+
+.oac-modal__new {
+    --slds-c-button-brand-color-background: var(--oac-orange);
+    --slds-c-button-brand-color-border: var(--oac-orange);
+    --slds-c-button-brand-color-background-hover: var(--oac-orange-hover);
+    --slds-c-button-brand-color-border-hover: var(--oac-orange-hover);
+    --slds-c-button-brand-color-background-active: var(--oac-orange-hover);
+    --slds-c-button-brand-color-border-active: var(--oac-orange-hover);
+    --slds-c-button-brand-text-color: #ffffff;
+    --slds-c-button-radius-border: 10px;
+}
+
+/* white icon buttons on the navy header */
+.oac-iconbtn {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.oac-iconbtn:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.oac-iconbtn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+.oac-iconbtn svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff;
+}
+
+/* ---- wordmark + mascot ------------------------------------- */
+
+.oac-wordmark {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+/* modal wordmark sits on the navy header bar */
+.oac-wordmark__primary {
+    color: #ffffff;
+}
+
+.oac-wordmark__accent {
+    color: var(--oac-orange);
+}
+
+.oac-mascot {
+    display: inline-block;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+}
+
+.oac-mascot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 42%;
+}
+
+.oac-mascot_lg {
+    width: 40px;
+    height: 40px;
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.35);
+}
+
+.oac-mascot_sm {
+    width: 28px;
+    height: 28px;
+    box-shadow: inset 0 0 0 1px var(--oac-border);
+}
+
+/* ---- content region --------------------------------------- */
+
+.oac-modal__content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    background: #fff;
+}
+
+.oac-empty {
+    color: var(--oac-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+    padding: 40px 16px;
+}
+
+/* ---- list view : search ----------------------------------- */
+
+.oac-search {
+    display: block;
+    margin-bottom: 16px;
+    --slds-c-input-radius-border: 10px;
+    --slds-c-input-color-border: var(--oac-border);
+    --slds-c-input-color-background: #fff;
+    --slds-c-input-sizing-min-height: 44px;
+    --slds-c-input-text-color-placeholder: var(--oac-placeholder);
+}
+
+/* ---- list view : day groups ------------------------------- */
+
+.oac-daygroup {
+    margin-bottom: 20px;
+}
+
+.oac-daygroup__label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--oac-badge-text);
+    background: var(--oac-light-blue);
+    border-radius: 8px;
+    padding: 3px 8px;
+    margin-bottom: 10px;
+}
+
+/* ---- list view : conversation cards ----------------------- */
+
+.oac-convo-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 8px;
+    background: #fff;
+    border: 1px solid var(--oac-border);
+    border-radius: 12px;
+    padding: 4px 10px 4px 6px;
+    transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.oac-convo-row:hover {
+    border-color: var(--oac-border-strong);
+    background: var(--oac-light-blue);
+}
+
+.oac-convo-row_featured {
+    border-color: rgba(255, 106, 0, 0.4);
+}
+
+.oac-convo-card {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    font-family: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 4px;
+    cursor: pointer;
+}
+
+.oac-convo-card:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}
+
+.oac-convo-card__delete {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.oac-convo-card__delete:hover {
+    background: var(--oac-soft-orange);
+}
+
+.oac-convo-card__delete:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}
+
+.oac-convo-card__trash {
+    width: 15px;
+    height: 15px;
+    stroke: var(--oac-text-secondary);
+}
+
+.oac-convo-card__delete:hover .oac-convo-card__trash {
+    stroke: var(--oac-orange);
+}
+
+.oac-convo-card__main {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.oac-convo-card__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--oac-navy);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.oac-convo-card__preview {
+    font-size: 12px;
+    color: var(--oac-text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.oac-convo-card__time {
+    font-size: 11px;
+    color: var(--oac-text-secondary);
+    flex: 0 0 auto;
+}
+
+.oac-convo-card__chev {
+    width: 14px;
+    height: 14px;
+    stroke: var(--oac-border-strong);
+    flex: 0 0 14px;
+}
+
+/* ---- detail view : transcript ---------------------------- */
+
+.oac-transcript {
+    display: flex;
+    flex-direction: column;
+}
+
+.oac-row {
+    margin-bottom: 20px;
+}
+
+.oac-row:last-child {
+    margin-bottom: 0;
+}
+
+.oac-msg__bubble {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--oac-navy);
+    padding: 12px 16px;
+    border-radius: 14px;
+    max-width: min(42rem, 100%);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* user */
+.oac-msg_user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.oac-msg__bubble_user {
+    background: var(--oac-soft-orange);
+    border: 1px solid rgba(255, 106, 0, 0.22);
+    border-radius: 14px 14px 4px 14px;
+}
+
+/* agent */
+.oac-msg_agent {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.oac-msg__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    max-width: calc(100% - 36px);
+}
+
+.oac-msg__role {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--oac-text-secondary);
+    margin-bottom: 4px;
+}
+
+.oac-msg__bubble_agent {
+    background: var(--oac-light-blue);
+    border: 1px solid var(--oac-border);
+    border-radius: 14px 14px 14px 4px;
+}
+
+.oac-msg__bubble_thinking {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--oac-text-secondary);
+    position: relative;
+    min-height: 2.25rem;
+}
+
+.oac-msg__time {
+    font-size: 11px;
+    color: var(--oac-text-secondary);
+    margin-top: 4px;
+}
+
+.oac-meta {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--oac-text-secondary);
+    text-align: center;
+    padding: 4px 12px;
+}
+
+.oac-meta[data-error='true'] {
+    color: #b3261e;
+}
+
+/* ---- detail view : footer composer ----------------------- */
+
+.oac-modal__footer {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--oac-border);
+    background: #fff;
+}
+
+.oac-followup {
+    flex: 1 1 auto;
+    min-width: 0;
+    --slds-c-textarea-radius-border: 12px;
+    --slds-c-textarea-color-border: var(--oac-border);
+    --slds-c-textarea-color-background: #fff;
+    --slds-c-textarea-text-color-placeholder: var(--oac-placeholder);
+}
+
+/* ---- orange circular send (shared with compact) ---------- */
+
+.oac-send {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--oac-orange);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+}
+
+.oac-send:hover {
+    background: var(--oac-orange-hover);
+}
+
+.oac-send_off,
+.oac-send_off:hover {
+    background: var(--oac-orange-disabled);
+    cursor: not-allowed;
+}
+
+.oac-send:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}
+
+.oac-send svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+}
+
+/* ---- responsive ----------------------------------------- */
+
+@media (max-width: 48em) {
+    .oac-modal__container {
+        width: 96vw;
+        min-width: 0;
+        height: 92vh;
+        max-height: 92vh;
+    }
+
+    .oac-modal__new .slds-truncate {
+        display: none;
+    }
+}
+
+/* ---- delete-conversation confirm ------------------------- */
+
+.oac-confirm {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13, 27, 61, 0.28);
+    border-radius: 16px;
+}
+
+.oac-confirm__box {
+    width: min(320px, 86%);
+    background: #fff;
+    border: 1px solid var(--oac-border);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 8px 28px rgba(13, 27, 61, 0.18);
+}
+
+.oac-confirm__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--oac-navy);
+    margin-bottom: 6px;
+}
+
+.oac-confirm__body {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--oac-text-secondary);
+    margin-bottom: 16px;
+}
+
+.oac-confirm__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.oac-confirm__cancel,
+.oac-confirm__delete {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.oac-confirm__cancel {
+    background: #fff;
+    border: 1px solid var(--oac-border);
+    color: var(--oac-navy);
+}
+
+.oac-confirm__cancel:hover {
+    background: var(--oac-light-blue);
+}
+
+.oac-confirm__delete {
+    background: #c0392b;
+    border: 1px solid #c0392b;
+    color: #fff;
+}
+
+.oac-confirm__delete:hover {
+    background: #a93226;
+}
+
+.oac-confirm__cancel:focus-visible,
+.oac-confirm__delete:focus-visible {
+    outline: 2px solid var(--oac-navy);
+    outline-offset: 2px;
+}

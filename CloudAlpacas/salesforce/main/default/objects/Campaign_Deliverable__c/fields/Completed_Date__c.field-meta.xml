@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Completed_Date__c</fullName>
+    <inlineHelpText>이 캠페인 세부 실행 건을 실제로 완료한 날짜입니다. 아직 진행 중이거나 시작 전이면 비워둡니다.</inlineHelpText>
+    <label>Completed Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

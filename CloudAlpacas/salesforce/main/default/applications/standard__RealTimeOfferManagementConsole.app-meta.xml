@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Real Time Offer Management</label>
+    <navType>Console</navType>
+    <tabs>standard-home</tabs>
+    <tabs>standard-RealTimeOfferManagementPlanning</tabs>
+    <tabs>standard-RealTimeOfferManagementDefinition</tabs>
+    <tabs>standard-RealTimeOfferManagementAnalytics</tabs>
+    <tabs>standard-RealTimeOfferManagementSetup</tabs>
+    <tabs>Game__c</tabs>
+    <tabs>Recommendations__c</tabs>
+    <uiType>Lightning</uiType>
+    <workspaceConfig>
+        <mappings>
+            <tab>Game__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Recommendations__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-RealTimeOfferManagementAnalytics</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-RealTimeOfferManagementDefinition</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-RealTimeOfferManagementPlanning</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-RealTimeOfferManagementSetup</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-home</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

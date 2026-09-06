@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Modified_By_User__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to the User who made this case update. Mirrors ssot__LastModifiedById__c on ssot__CaseUpdate__dlm.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>User who performed this status change on the Case.</inlineHelpText>
+    <label>Last Modified By User</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>SD Analytics Case Updates (Last Modified)</relationshipLabel>
+    <relationshipName>SD_Analytics_Case_Updates_Modified</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

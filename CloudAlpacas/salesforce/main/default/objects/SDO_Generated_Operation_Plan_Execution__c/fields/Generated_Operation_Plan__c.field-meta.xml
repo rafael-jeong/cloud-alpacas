@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generated_Operation_Plan__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Parent plan. Real CRM lookup used by the UI. Before-save automation copies Generated_Operation_Plan__r.Generated_Operation_Plan_Id__c into Generated_Operation_Plan_FK__c for DMO mapping.</description>
+    <externalId>false</externalId>
+    <label>Generated Operation Plan</label>
+    <referenceTo>SDO_Generated_Operation_Plan__c</referenceTo>
+    <relationshipLabel>SDO Generated Operation Plan Executions</relationshipLabel>
+    <relationshipName>SDO_Generated_Operation_Plan_Executions</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

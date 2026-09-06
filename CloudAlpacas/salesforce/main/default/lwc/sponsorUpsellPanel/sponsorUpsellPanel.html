@@ -1,0 +1,137 @@
+<template>
+    <div class="su-board">
+
+        <template if:true={error}>
+            <div class="su-error">{error}</div>
+        </template>
+
+        <template if:true={hasData}>
+            <!-- 툴바 -->
+            <div class="su-toolbar">
+                <div class="su-toolbar-title">파트너십 업셀 플랜</div>
+                <button type="button" class="su-export-btn" onclick={handleSendSlack} disabled={sending}>
+                    <template if:true={sending}>발송 중…</template>
+                    <template if:false={sending}>Slack으로 발송</template>
+                </button>
+            </div>
+
+            <!-- 헤드라인 3열 -->
+            <div class="su-headline-grid">
+                <!-- 1. 현재 등급 (hero, orange) -->
+                <div class="su-metric-card su-metric-card--hero">
+                    <div class="su-metric-top">
+                        <span class="su-metric-kicker">현재 등급</span>
+                        <span class="su-metric-icon-btn" aria-hidden="true">♛</span>
+                    </div>
+                    <div class="su-metric-main">
+                        <span class="su-metric-number">{currentTierLabel}</span>
+                    </div>
+                    <div class="su-hero-bars" aria-hidden="true">
+                        <template for:each={heroBars} for:item="b">
+                            <span key={b.year} class={b.barClass} style={b.style}></span>
+                        </template>
+                    </div>
+                    <div class="su-metric-footnote">{contractYearsLabel}</div>
+                </div>
+
+                <!-- 2. 전년 대비 성장 -->
+                <div class="su-metric-card su-metric-card--surface">
+                    <div class="su-metric-top">
+                        <span class="su-metric-kicker su-metric-kicker--muted">전년 대비 성장</span>
+                        <span class={growthBadgeClass}>{growthBadgeLabel}</span>
+                    </div>
+                    <div class="su-metric-main">
+                        <span class="su-metric-number su-metric-number--dark">{growthValue}</span>
+                    </div>
+                    <div class="su-metric-chart" aria-hidden="true">
+                        <svg viewBox="0 0 240 44" preserveAspectRatio="none" class="su-metric-chart-svg">
+                            <path d="M0,34 L48,30 L96,24 L144,18 L192,12 L240,8 L240,44 L0,44 Z" class="su-metric-chart-area"></path>
+                            <path d="M0,34 L48,30 L96,24 L144,18 L192,12 L240,8" class="su-metric-chart-line"></path>
+                            <circle cx="240" cy="8" r="4" class="su-metric-chart-dot"></circle>
+                        </svg>
+                    </div>
+                    <div class="su-metric-footnote su-metric-footnote--dark">시즌별 계약금액 추이</div>
+                </div>
+
+                <!-- 3. 다음 등급 목표 -->
+                <div class="su-metric-card su-metric-card--surface">
+                    <div class="su-metric-top">
+                        <span class="su-metric-kicker su-metric-kicker--muted">다음 등급 목표</span>
+                        <template if:true={priceDeltaLabel}>
+                            <span class="su-metric-badge su-metric-badge--neutral">{priceDeltaLabel}</span>
+                        </template>
+                    </div>
+                    <div class="su-metric-main">
+                        <span class="su-metric-number su-metric-number--dark">{targetTierLabel}</span>
+                    </div>
+                    <template if:true={targetProgress}>
+                        <div class="su-vip-ratio-row">
+                            <div class="su-donut" aria-hidden="true">
+                                <svg viewBox="0 0 120 120" class="su-donut-svg">
+                                    <circle cx="60" cy="60" r="50" class="su-donut-track"></circle>
+                                    <circle cx="60" cy="60" r="50" class="su-donut-value" style={targetProgress.dashStyle}></circle>
+                                </svg>
+                            </div>
+                            <div class="su-vip-ratio-detail">
+                                <span class="su-vip-ratio-label">보유 권리 {targetProgress.heldLabel}</span>
+                                <div class="su-vip-ratio-bar">
+                                    <div class="su-vip-ratio-bar-fill" style={targetProgress.barStyle}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="su-metric-footnote su-metric-footnote--dark">{targetFootnote}</div>
+                </div>
+            </div>
+
+            <!-- 등급 사다리 -->
+            <div class="su-card">
+                <div class="su-section-header">
+                    <span class="su-section-title">등급 사다리</span>
+                </div>
+                <div class="su-ladder">
+                    <template for:each={ladderSteps} for:item="s">
+                        <div key={s.key} class={s.cls}>
+                            <span class="su-step-name">{s.name}</span>
+                            <span class="su-step-price">{s.priceLabel}</span>
+                            <template if:true={s.isCurrent}><span class="su-step-tag su-step-tag--cur">현재</span></template>
+                            <template if:true={s.isTarget}><span class="su-step-tag su-step-tag--tgt">목표 ↑</span></template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- 혜택 갭 -->
+            <div class="su-card">
+                <div class="su-section-header">
+                    <span class="su-section-title">{upsellHeadline}</span>
+                </div>
+                <div class="su-chips">
+                    <template for:each={rightItems} for:item="r">
+                        <span key={r.code} class={r.cls}>
+                            <span class="su-chip-icon">{r.icon}</span> {r.name}
+                        </span>
+                    </template>
+                </div>
+            </div>
+
+            <!-- 준비도 신호 -->
+            <div class="su-card">
+                <div class="su-section-header">
+                    <span class="su-section-title">업셀 준비도 신호</span>
+                </div>
+                <div class="su-signals">
+                    <template for:each={signals} for:item="sig">
+                        <div key={sig.key} class="su-signal">
+                            <span class={sig.dotClass}></span>
+                            <div class="su-sig-body">
+                                <span class="su-sig-value">{sig.value}</span>
+                                <span class="su-sig-label">{sig.label}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

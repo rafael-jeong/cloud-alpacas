@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsActive</fullName>
+    <inlineHelpText>지금 실제로 실행 중인 협업인지 표시합니다. 계약은 됐지만 아직 실행 전(Planned)이면 체크를 해제한 상태로 둡니다.</inlineHelpText>
+</CustomField>

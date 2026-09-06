@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <description>누적 관람 횟수가 최초 1회가 되면 팬을 Active Fan으로 전환하고 첫 관람 안내 이력을 생성</description>
+    <environments>Default</environments>
+    <interviewLabel>First Visit Guide Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>First Visit Guide Flow -CA</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>최초 관람한 팬의 Active Fan 전환 이력을 생성</description>
+        <name>Create_Active_Fan_Segment_History</name>
+        <label>Create Active Fan Segment History</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Fan_Current_Segment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Changed_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Reason__c</field>
+            <value>
+                <stringValue>최초 관람</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Segment__c</field>
+            <value>
+                <stringValue>Active Fan</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Fan_Segment_History__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>팬의 최초 관람이 확인되면 First Visit Guide 발송 이력을 Notification Log에 생성</description>
+        <name>Create_First_Visit_Guide_Notification</name>
+        <label>Create First Visit Guide Notification</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Channel__c</field>
+            <value>
+                <stringValue>Push</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Content__c</field>
+            <value>
+                <stringValue>첫 관람을 환영합니다. 경기장 이용 안내를 확인해주세요.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Notification_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <description>팬의 최초 관람이 확인되면 현재 세그먼트를 Active Fan으로 변경하고 세그먼트 변경일을 기록</description>
+        <name>Update_Fan_Current_Segment</name>
+        <label>Update Fan Current Segment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_First_Visit_Guide_Notification</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Current_Segment__c</field>
+            <value>
+                <stringValue>Active Fan</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Segment_Updated_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Active_Fan_Segment_History</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Total_Admissions__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </filters>
+        <object>Attendance_Record__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

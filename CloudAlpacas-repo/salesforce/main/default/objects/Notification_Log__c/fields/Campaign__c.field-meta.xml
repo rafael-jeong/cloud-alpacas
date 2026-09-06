@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>해당 알림을 발송하게 만든 캠페인을 연결(캠페인과 무관한 안내라면 비워둘 수 있음)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>해당 알림을 발송하게 만든 캠페인을 연결(캠페인과 무관한 안내라면 비워둘 수 있음)</inlineHelpText>
+    <label>Campaign</label>
+    <referenceTo>Campaign</referenceTo>
+    <relationshipLabel>Notifications Logs</relationshipLabel>
+    <relationshipName>Notifications_Logs</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

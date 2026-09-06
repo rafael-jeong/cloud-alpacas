@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>External_ID__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Unique external identifier. Pattern: CSU_TAB-{number} matching the linked CSE-TAB-{number} on Case.External_ID__c. Used to upsert CaseUpdate records from Apex scripts.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Populate with a unique key from the source system (e.g. CaseHistory Id) to prevent duplicate records during data loads.</inlineHelpText>
+    <label>External ID</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

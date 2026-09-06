@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signal_Type__c</fullName>
+    <description>팬이 보인 관심 신호의 종류를 기록</description>
+    <externalId>false</externalId>
+    <inlineHelpText>팬이 보인 관심 신호의 종류를 기록</inlineHelpText>
+    <label>Signal Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SNS Click</fullName>
+                <default>false</default>
+                <label>SNS Click</label>
+            </value>
+            <value>
+                <fullName>Video View</fullName>
+                <default>false</default>
+                <label>Video View</label>
+            </value>
+            <value>
+                <fullName>App Open</fullName>
+                <default>false</default>
+                <label>App Open</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

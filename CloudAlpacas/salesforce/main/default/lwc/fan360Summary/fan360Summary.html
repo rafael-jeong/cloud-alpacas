@@ -1,0 +1,68 @@
+<template>
+    <lightning-card>
+        <template if:true={isEmpty}>
+            <div class="empty-hint">
+                왼쪽에서 <strong>대표 팬 검토</strong>를 눌러<br>Fan 360 데이터를 확인하세요.
+            </div>
+        </template>
+        <template if:true={hasData}>
+            <div class="fan360">
+                <template if:true={showBackToList}>
+                    <button class="back-to-list-btn" onclick={handleBackToList}>← 리스트로 돌아가기</button>
+                </template>
+                <div class="fan-header">
+                    <div class="fan-avatar">{fan.fanName}</div>
+                    <div class="fan-headline">
+                        <div class="fan-name-row">
+                            <span class="fan-name">{fan.fanName}</span>
+                            <template if:true={fan.fanValueTier}>
+                                <span class="tier-badge">{fan.fanValueTier}</span>
+                            </template>
+                        </div>
+                        <div class="fan-sub">{segmentLabel}</div>
+                    </div>
+                </div>
+                <div class="section-label">Fan 360 요약</div>
+                <div class="summary-grid">
+                    <div class="summary-cell">
+                        <div class="cell-label">최근 경기 관람</div>
+                        <div class="cell-value">{fan.lastAttendance}</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="cell-label">티켓 구매</div>
+                        <div class="cell-value">{fan.ticketPurchase}</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="cell-label">굿즈 구매</div>
+                        <div class="cell-value">{fan.merchPurchase}</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="cell-label">멤버십</div>
+                        <div class="cell-value">{fan.membership}</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="cell-label">최애 선수</div>
+                        <div class="cell-value">{fan.favoritePlayer}</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="cell-label">LTV</div>
+                        <div class="cell-value cell-value--accent">{fan.ltv}</div>
+                    </div>
+                </div>
+                <div class="section-label">타임라인 요약</div>
+                <div class="timeline">
+                    <template for:each={fan.timeline} for:item="t">
+                        <div key={t.text} class="timeline-row">
+                            <span class="timeline-type">{t.type}</span>
+                            <span class="timeline-text">{t.text}</span>
+                            <span class="timeline-when">{t.whenText}</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <template if:true={error}>
+            <div class="error-box">데이터를 불러오지 못했습니다. 팬 데이터가 있는지 확인해주세요.</div>
+        </template>
+    </lightning-card>
+</template>

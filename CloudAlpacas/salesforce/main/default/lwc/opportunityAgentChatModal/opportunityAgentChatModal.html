@@ -1,0 +1,254 @@
+<template>
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        aria-labelledby={headingId}
+        class="slds-modal slds-fade-in-open oac-modal"
+        onkeydown={handleKeyDown}
+    >
+        <div class="slds-modal__container oac-modal__container" onclick={stop}>
+            <!-- ============ HEADER ============ -->
+            <header class="oac-modal__header">
+                <div class="oac-modal__identity">
+                    <template lwc:if={isDetailView}>
+                        <button
+                            type="button"
+                            class="oac-iconbtn"
+                            aria-label="이전 대화 목록"
+                            title="이전 대화 목록"
+                            onclick={back}
+                        >
+                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                                <path
+                                    d="M12.5 4 6.5 10l6 6"
+                                    fill="none"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                ></path>
+                            </svg>
+                        </button>
+                    </template>
+
+                    <span class="oac-mascot oac-mascot_lg">
+                        <img src={mascotUrl} alt="" />
+                    </span>
+
+                    <span class="oac-modal__titles">
+                        <span id={headingId} class="oac-wordmark"
+                            ><span class="oac-wordmark__primary">Opportunity</span>&nbsp;<span
+                                class="oac-wordmark__accent"
+                                >Agent</span
+                            ></span
+                        >
+                        <template lwc:if={opportunityName}>
+                            <span class="oac-modal__oppname">{opportunityName}</span>
+                        </template>
+                    </span>
+                </div>
+
+                <div class="oac-modal__actions">
+                    <lightning-button
+                        class="oac-modal__new"
+                        variant="brand"
+                        label="새 대화"
+                        icon-name="utility:add"
+                        onclick={newConversation}
+                    ></lightning-button>
+                    <button
+                        type="button"
+                        class="oac-iconbtn"
+                        aria-label="닫기"
+                        title="닫기"
+                        onclick={close}
+                    >
+                        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                            <path d="M5 5 15 15M15 5 5 15" fill="none" stroke-width="1.8" stroke-linecap="round"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="oac-modal__content">
+                <!-- ============ LIST VIEW ============ -->
+                <template lwc:if={isListView}>
+                    <lightning-input
+                        type="search"
+                        variant="label-hidden"
+                        label="대화 기록 검색"
+                        placeholder="찾고 싶은 내용이 무엇인가요?"
+                        value={searchTerm}
+                        onchange={handleSearch}
+                        class="oac-search oac-initial-focus"
+                    ></lightning-input>
+
+                    <template lwc:if={hasConversations}>
+                        <template for:each={groupedConversations} for:item="group">
+                            <div key={group.key} class="oac-daygroup">
+                                <span class="oac-daygroup__label">{group.label}</span>
+                                <template for:each={group.items} for:item="c">
+                                    <div key={c.id} class={c.rowClass}>
+                                        <button
+                                            type="button"
+                                            data-id={c.id}
+                                            class="oac-convo-card"
+                                            onclick={openConversation}
+                                        >
+                                            <span class="oac-convo-card__main">
+                                                <span class="oac-convo-card__title">{c.title}</span>
+                                                <span class="oac-convo-card__preview">{c.preview}</span>
+                                            </span>
+                                            <span class="oac-convo-card__time">{c.time}</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            data-id={c.id}
+                                            class="oac-convo-card__delete"
+                                            aria-label="대화 기록 삭제"
+                                            title="대화 기록 삭제"
+                                            onclick={requestDelete}
+                                        >
+                                            <svg class="oac-convo-card__trash" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                                <path
+                                                    d="M2.7 4h10.6M6.4 4V2.9c0-.4.3-.8.8-.8h1.6c.5 0 .8.4.8.8V4M4.2 4l.5 8.5c0 .6.5 1 1 1h4.6c.5 0 1-.4 1-1l.5-8.5M6.7 6.4v5M9.3 6.4v5"
+                                                    fill="none"
+                                                    stroke-width="1.2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                ></path>
+                                            </svg>
+                                        </button>
+                                        <svg class="oac-convo-card__chev" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                            <path
+                                                d="M6 3.5 10.5 8 6 12.5"
+                                                fill="none"
+                                                stroke-width="1.6"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <p class="oac-empty">이 Opportunity에 저장된 대화가 없습니다. "새 대화"로 시작해 보세요.</p>
+                    </template>
+                </template>
+
+                <!-- ============ DETAIL VIEW ============ -->
+                <template lwc:if={isDetailView}>
+                    <div class="oac-transcript">
+                        <template lwc:if={hasDetailMessages}>
+                            <template for:each={detailMessages} for:item="m">
+                                <div key={m.key} class={m.rowClass}>
+                                    <template lwc:if={m.isMeta}>
+                                        <p class="oac-meta" data-error={m.isError}>
+                                            <lightning-formatted-text value={m.text}></lightning-formatted-text>
+                                        </p>
+                                    </template>
+                                    <template lwc:elseif={m.isUser}>
+                                        <div class="oac-msg oac-msg_user">
+                                            <div class="oac-msg__bubble oac-msg__bubble_user">
+                                                <lightning-formatted-text value={m.text}></lightning-formatted-text>
+                                            </div>
+                                            <span class="oac-msg__time">{m.time}</span>
+                                        </div>
+                                    </template>
+                                    <template lwc:else>
+                                        <div class="oac-msg oac-msg_agent">
+                                            <span class="oac-mascot oac-mascot_sm oac-msg__avatar">
+                                                <img src={mascotUrl} alt="" />
+                                            </span>
+                                            <div class="oac-msg__col">
+                                                <span class="oac-msg__role">Opportunity Agent</span>
+                                                <div class="oac-msg__bubble oac-msg__bubble_agent">
+                                                    <lightning-formatted-text value={m.text}></lightning-formatted-text>
+                                                </div>
+                                                <span class="oac-msg__time">{m.time}</span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </template>
+                        <template lwc:else>
+                            <p class="oac-empty">이 Opportunity에 대해 궁금한 점을 입력해 주세요.</p>
+                        </template>
+
+                        <template lwc:if={busy}>
+                            <div class="oac-msg oac-msg_agent">
+                                <span class="oac-mascot oac-mascot_sm oac-msg__avatar">
+                                    <img src={mascotUrl} alt="" />
+                                </span>
+                                <div class="oac-msg__col">
+                                    <span class="oac-msg__role">Opportunity Agent</span>
+                                    <div class="oac-msg__bubble oac-msg__bubble_agent oac-msg__bubble_thinking">
+                                        <lightning-spinner
+                                            size="x-small"
+                                            variant="brand"
+                                            alternative-text="응답 생성 중"
+                                        ></lightning-spinner>
+                                        <span>답변을 준비하고 있어요…</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <!-- ============ DETAIL COMPOSER ============ -->
+            <template lwc:if={isDetailView}>
+                <footer class="oac-modal__footer">
+                    <lightning-textarea
+                        class="oac-followup oac-initial-focus"
+                        name="followUp"
+                        variant="label-hidden"
+                        label="이어서 질문하기"
+                        placeholder="무엇이든 요청하세요!"
+                        value={followUpDraft}
+                        max-length="2000"
+                        disabled={busy}
+                        onchange={handleFollowUpInput}
+                        onkeydown={handleFollowUpKey}
+                    ></lightning-textarea>
+                    <button
+                        type="button"
+                        class={sendClass}
+                        aria-label="전송"
+                        aria-disabled={followUpDisabled}
+                        title="전송"
+                        onclick={sendFollowUp}
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"></path>
+                        </svg>
+                    </button>
+                </footer>
+            </template>
+
+            <template lwc:if={pendingDeleteId}>
+                <div
+                    class="oac-confirm"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="oac-confirm-heading"
+                    onkeydown={handleConfirmKeydown}
+                >
+                    <div class="oac-confirm__box">
+                        <p id="oac-confirm-heading" class="oac-confirm__title">대화 기록을 삭제할까요?</p>
+                        <p class="oac-confirm__body">삭제한 대화 기록은 복구할 수 없습니다.</p>
+                        <div class="oac-confirm__actions">
+                            <button type="button" class="oac-confirm__cancel" onclick={cancelDelete}>취소</button>
+                            <button type="button" class="oac-confirm__delete" onclick={confirmDelete}>삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" onclick={handleBackdrop}></div>
+</template>

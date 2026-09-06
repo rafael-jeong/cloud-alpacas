@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status</fullName>
+    <inlineHelpText>이 협업이 지금 어느 단계인지 나타냅니다. Planned(계획 수립) → In Progress(실행 중) → Completed(정상 종료) 또는 Aborted(중단) 순서로 관리합니다.</inlineHelpText>
+    <type>Picklist</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Lookup to Case. Maps to ssot__SurveySubjectId__c on ssot__SurveySubject__dlm.</description>
+    <externalId>false</externalId>
+    <label>Case</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>SDO Analytics Survey Subjects</relationshipLabel>
+    <relationshipName>SDO_Analytics_Survey_Subjects</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Attendance_Rate__c</fullName>
+    <description>해당 시즌의 실제 진행 경기 수 대비 팬의 관람 경기 수 비율을 자동 계산</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    OR(
+        ISBLANK(Season__c),
+        Season__r.Played_Games__c = 0
+    ),
+    0,
+    BLANKVALUE(Games_Attended__c, 0) /
+    Season__r.Played_Games__c
+)</formula>
+    <inlineHelpText>관람 경기 수를 시즌의 실제 진행 경기 수로 나눈 비율</inlineHelpText>
+    <label>Attendance Rate</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

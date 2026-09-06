@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Performance_Summary__c</fullName>
+    <description>Renewal_Campaign_Performance_Summary Flow가 형제 Collaboration 캠페인들의 실적(노출/반응/이행률)을 집계해 Diamond/Platinum/Gold 등급별 요약문 중 하나를 자동으로 채우는 필드. 갱신(Renewal) 영업 시 참고자료로 사용.</description>
+    <inlineHelpText>자동 생성된 요약이므로 직접 수정하지 마세요. 이 캠페인이 저장될 때마다 Flow가 다시 계산해 덮어씁니다.</inlineHelpText>
+    <label>성과 요약</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>

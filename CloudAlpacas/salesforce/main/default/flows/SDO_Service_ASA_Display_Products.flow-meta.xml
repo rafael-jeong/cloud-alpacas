@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <assignments>
+        <name>Assign_Details</name>
+        <label>Assign Details</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>productsToDisplay</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>formatProductDetails</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>For_Each_Product</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Next_Steps</name>
+        <label>Assign Next Steps</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>nextSteps</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Select a product for more details</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Used in the Cirrus Agentforce Service Agent to display products in a visual format</description>
+    <environments>Default</environments>
+    <interviewLabel>SDO Service - ASA - Display Products {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>SDO Service - ASA - Display Products</label>
+    <loops>
+        <name>For_Each_Product</name>
+        <label>For Each Product</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_Products</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Details</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Assign_Next_Steps</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Products</name>
+        <label>Get Products</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>For_Each_Product</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>In</operator>
+            <value>
+                <elementReference>listOfProducts</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Product2</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Products</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>formatProductDetails</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&quot;name&quot;:&quot;{!For_Each_Product.Name}&quot;,
+&quot;mimeType&quot;:&quot;image/png&quot;,
+&quot;imageUrl&quot;:&quot;{!For_Each_Product.Image_URL__c}&quot;</text>
+    </textTemplates>
+    <variables>
+        <description>A list of product ids related to the customer&apos;s query</description>
+        <name>listOfProducts</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>This is the recommended next steps for the user</description>
+        <name>nextSteps</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>This is a list of products for the user to select from</description>
+        <name>productsToDisplay</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

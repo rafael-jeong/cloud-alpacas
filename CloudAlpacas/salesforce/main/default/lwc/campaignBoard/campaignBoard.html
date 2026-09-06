@@ -1,0 +1,99 @@
+<template>
+    <div class="campaign-board">
+        <!-- 헤더 -->
+        <div class="cb-header">
+            <div>
+                <div class="cb-title">캠페인 관리</div>
+                <div class="cb-sub">진행 중인 팬 참여 캠페인 현황</div>
+            </div>
+            <button class="cb-new-btn" onclick={handleNewCampaign}>새 캠페인</button>
+        </div>
+
+        <!-- 진행 중 / 예약됨 -->
+        <template if:true={hasActive}>
+            <div class="cb-grid">
+                <template for:each={activeCampaigns} for:item="c">
+                    <div key={c.name} class="cb-card">
+                        <div class="cb-card-top">
+                            <span class="cb-card-name">{c.name}</span>
+                            <span class={c.badgeClass}>{c.status}</span>
+                        </div>
+                        <div class="cb-card-target">대상: {c.target}</div>
+
+                        <div class="cb-progress-row">
+                            <span class="cb-progress-label">진행률</span>
+                            <span class="cb-progress-pct">{c.progress}%</span>
+                        </div>
+                        <div class="cb-bar">
+                            <div class={c.barClass} style={c.progressStyle}></div>
+                        </div>
+
+                        <template if:true={c.isScheduled}>
+                            <div class="cb-stats">
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">대상 인원</div>
+                                    <div class="cb-stat-value">{c.targetCount}명</div>
+                                </div>
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">발송 예정일</div>
+                                    <div class="cb-stat-value">{c.scheduledDate}</div>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:false={c.isScheduled}>
+                            <div class="cb-stats">
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">발송</div>
+                                    <div class="cb-stat-value">{c.numberSent}명</div>
+                                </div>
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">클릭률</div>
+                                    <div class="cb-stat-value cb-stat-value--rate">{c.clickRate}%</div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- 종료된 캠페인: 접이식 모아보기 -->
+        <template if:true={hasEnded}>
+            <button class="ended-toggle" onclick={toggleEnded}>{endedToggleLabel}</button>
+            <div class={endedSectionClass}>
+                <div class="cb-grid">
+                    <template for:each={endedCampaigns} for:item="c">
+                        <div key={c.name} class="cb-card cb-card--ended">
+                            <div class="cb-card-top">
+                                <span class="cb-card-name">{c.name}</span>
+                                <span class={c.badgeClass}>{c.status}</span>
+                            </div>
+                            <div class="cb-card-target">대상: {c.target}</div>
+                            <div class="cb-progress-row">
+                                <span class="cb-progress-label">진행률</span>
+                                <span class="cb-progress-pct">{c.progress}%</span>
+                            </div>
+                            <div class="cb-bar">
+                                <div class={c.barClass} style={c.progressStyle}></div>
+                            </div>
+                            <div class="cb-stats">
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">발송</div>
+                                    <div class="cb-stat-value">{c.numberSent}명</div>
+                                </div>
+                                <div class="cb-stat">
+                                    <div class="cb-stat-label">클릭률</div>
+                                    <div class="cb-stat-value cb-stat-value--rate">{c.clickRate}%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="cb-error">캠페인 정보를 불러오지 못했습니다.</div>
+        </template>
+    </div>
+</template>

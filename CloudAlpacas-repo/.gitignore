@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Node
+node_modules/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/settings.json
+
+# Logs
+*.log
+
+# Personal
+0nlySara/
+
+# Salesforce CLI local state
+.sf/
+
+# VS Code personal settings
+.vscode/

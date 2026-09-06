@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Benefit_Type__c</fullName>
+    <description>팬에게 제공된 혜택의 종류를 기록</description>
+    <externalId>false</externalId>
+    <inlineHelpText>팬에게 제공된 혜택의 종류를 기록</inlineHelpText>
+    <label>Benefit Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Coupon</fullName>
+                <default>false</default>
+                <label>Coupon</label>
+            </value>
+            <value>
+                <fullName>Discount</fullName>
+                <default>false</default>
+                <label>Discount</label>
+            </value>
+            <value>
+                <fullName>Early Access</fullName>
+                <default>false</default>
+                <label>Early Access</label>
+            </value>
+            <value>
+                <fullName>Membership Day Invite</fullName>
+                <default>false</default>
+                <label>Membership Day Invite</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

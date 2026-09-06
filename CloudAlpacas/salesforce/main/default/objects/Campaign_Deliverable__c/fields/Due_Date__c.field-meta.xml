@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Due_Date__c</fullName>
+    <inlineHelpText>이 캠페인 세부 실행 건을 완료하기로 약속한 날짜입니다. 이 날짜가 지났는데도 완료되지 않았다면 지연된 것으로 봅니다.</inlineHelpText>
+    <label>Due Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

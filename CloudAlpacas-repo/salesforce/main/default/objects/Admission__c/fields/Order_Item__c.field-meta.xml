@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Item__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>입장 시 사용한 티켓의 주문 상세 레코드를 연결(어떤 티켓으로 입장했는 지)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>입장 시 사용한 티켓의 주문 상세 레코드를 연결(어떤 티켓으로 입장했는 지)</inlineHelpText>
+    <label>Order Item</label>
+    <referenceTo>OrderItem</referenceTo>
+    <relationshipLabel>Admissions</relationshipLabel>
+    <relationshipName>Admissions</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

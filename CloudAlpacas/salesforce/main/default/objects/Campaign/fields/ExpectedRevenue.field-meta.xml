@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExpectedRevenue</fullName>
+    <inlineHelpText>이 협업으로 예상되는 매출(스폰서십 계약 금액)입니다. 연결된 Opportunity의 Amount를 기준으로 입력합니다.</inlineHelpText>
+</CustomField>

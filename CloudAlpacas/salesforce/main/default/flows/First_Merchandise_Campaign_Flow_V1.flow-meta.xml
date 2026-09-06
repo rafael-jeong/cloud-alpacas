@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <decisions>
+        <description>최초 관람 팬의 결제 완료 굿즈 구매 이력이 존재하는지 판단</description>
+        <name>Check_If_Goods_Purchase_Exists</name>
+        <label>Check If Goods Purchase Exists</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Paid Goods Purchase Exists</defaultConnectorLabel>
+        <rules>
+            <name>No_Paid_Goods_Purchase</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Paid_Goods_Purchase.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_First_Merchandise_Campaign_Recommendation</targetReference>
+            </connector>
+            <label>No Paid Goods Purchase</label>
+        </rules>
+    </decisions>
+    <description>팬의 최초 관람이 확인되면 결제 완료된 굿즈 구매 이력을 확인하고, 구매 이력이 없는 경우 First Merchandise Campaign 추천과 할인 혜택을 생성</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Flow 실행일을 기준으로 3개월 뒤의 할인 혜택 만료일을 계산</description>
+        <name>Benefit_Expiration_Date</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS({!$Flow.CurrentDate}, 3)</expression>
+    </formulas>
+    <interviewLabel>First Merchandise Campaign Flow - V1 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>First Merchandise Campaign Flow -CA</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>최초 관람 시점에 결제 완료된 굿즈 구매 이력이 없는 팬에게 First Merchandise Campaign 추천을 생성</description>
+        <name>Create_First_Merchandise_Campaign_Recommendation</name>
+        <label>Create First Merchandise Campaign Recommendation</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_First_Merchandise_Discount_Benefit</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Reason__c</field>
+            <value>
+                <stringValue>최초 관람 완료, 결제 완료된 굿즈 구매 이력 없음</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Recommended_Action__c</field>
+            <value>
+                <stringValue>First Merchandise Campaign</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Pending</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Recommendations__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>First Merchandise Campaign 추천이 생성된 팬에게 3개월간 유효한 굿즈 할인 혜택을 발급</description>
+        <name>Create_First_Merchandise_Discount_Benefit</name>
+        <label>Create First Merchandise Discount Benefit</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Benefit_Type__c</field>
+            <value>
+                <stringValue>Discount</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Expiration_Date__c</field>
+            <value>
+                <elementReference>Benefit_Expiration_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Issued</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Benefits__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <description>최초 관람한 팬에게 기존 결제 완료 굿즈 구매 이력이 있는지 조회</description>
+        <name>Get_Paid_Goods_Purchase</name>
+        <label>Get Paid Goods Purchase</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_If_Goods_Purchase_Exists</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Order_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Goods Purchase</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Payment_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Order</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Paid_Goods_Purchase</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Total_Admissions__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Fan__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Attendance_Record__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

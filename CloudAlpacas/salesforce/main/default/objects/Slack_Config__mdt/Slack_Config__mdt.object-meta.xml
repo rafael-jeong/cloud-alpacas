@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Slack Config</label>
+    <pluralLabel>Slack Configs</pluralLabel>
+    <description>Slack App 연동에 필요한 비밀 값(Signing Secret 등)을 저장한다. Apex는 시스템 모드로 이 값을 읽을 수 있지만, Guest User Profile에는 이 Object에 대한 조회 권한을 일절 부여하지 않는다 — 값은 오직 서버측 서명 검증 로직에서만 사용된다.</description>
+</CustomObject>

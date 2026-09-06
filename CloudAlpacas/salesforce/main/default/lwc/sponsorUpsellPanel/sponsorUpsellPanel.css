@@ -1,0 +1,222 @@
+/* Fan 360 시각 언어 재사용 — cloudAlpacas static resource의 CSS 변수 토큰을
+   그대로 쓰고, 리소스 로드 실패 시를 대비해 fallback 값을 함께 지정한다. */
+:host {
+    --su-primary: var(--color-primary, #ff5a1f);
+    --su-white: var(--color-white, #ffffff);
+    --su-black: var(--color-black, #16325c);
+    --su-border: var(--color-border, #e5e7eb);
+    --su-soft: var(--surface-soft, #f5f6f8);
+    --su-inverse: var(--surface-inverse, #1f2733);
+    --su-cream: var(--block-cream, #fdf1e7);
+    --su-pale-orange: var(--pale-orange, #fbe6d8);
+    --su-pale-green: var(--pale-green, #e4f5ea);
+    --su-gray100: var(--gray-100, #eef0f2);
+    --su-gray300: var(--gray-300, #cfd3d8);
+    --su-gray500: var(--gray-500, #706e6b);
+    --su-gray700: var(--gray-700, #3e3e3c);
+    --su-success: var(--color-success, #2e844a);
+    --su-error: var(--color-error, #c23934);
+    --su-radius: var(--radius-md, 12px);
+    --su-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.08));
+}
+
+.su-board {
+    padding: 4px 2px 8px;
+    font-feature-settings: 'tnum' 1;
+}
+
+.su-error {
+    padding: 20px;
+    color: var(--su-gray500);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* ── 툴바 ─────────────────────────────────────────── */
+.su-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.su-toolbar-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--su-black);
+    letter-spacing: -0.02em;
+}
+.su-export-btn {
+    padding: 10px 18px;
+    background: var(--su-inverse);
+    color: var(--su-white);
+    border: none;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+.su-export-btn:hover { filter: brightness(1.12); }
+.su-export-btn:disabled { opacity: 0.6; cursor: default; }
+
+/* ── 헤드라인 3열 ─────────────────────────────────── */
+.su-headline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+}
+.su-metric-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px;
+    min-height: 170px;
+    border-radius: 16px;
+}
+.su-metric-card--surface {
+    background: var(--su-white);
+    border: 1px solid var(--su-border);
+    box-shadow: var(--su-shadow);
+}
+.su-metric-card--hero {
+    background: var(--su-primary);
+    border: none;
+    box-shadow: var(--su-shadow);
+}
+.su-metric-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+.su-metric-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.01em;
+}
+.su-metric-kicker--muted { color: var(--su-gray500); }
+.su-metric-icon-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 999px;
+    background: rgba(255,255,255,0.22); color: var(--su-white);
+    font-size: 15px; flex-shrink: 0;
+}
+.su-metric-main { display: flex; align-items: flex-end; gap: 6px; }
+.su-metric-number {
+    font-size: 38px; line-height: 0.95; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--su-white);
+}
+.su-metric-number--dark { color: var(--su-black); }
+.su-metric-footnote {
+    font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.85);
+}
+.su-metric-footnote--dark { color: var(--su-gray500); }
+
+/* hero 미니 막대 (시즌별 계약금액) */
+.su-hero-bars { display: flex; align-items: flex-end; gap: 5px; height: 40px; }
+.su-hero-bar {
+    flex: 1; background: rgba(255,255,255,0.38); border-radius: 3px; min-width: 0;
+}
+.su-hero-bar--last { background: var(--su-white); }
+
+/* 성장 뱃지 */
+.su-metric-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12.5px; font-weight: 800;
+    padding: 3px 10px; border-radius: 999px; background: var(--su-soft);
+}
+.su-metric-badge--up { color: var(--su-success); }
+.su-metric-badge--down { color: var(--su-error); }
+.su-metric-badge--neutral { color: var(--su-primary); background: var(--su-cream); }
+
+/* 카드2 area chart */
+.su-metric-chart { height: 40px; }
+.su-metric-chart-svg { width: 100%; height: 40px; display: block; }
+.su-metric-chart-area { fill: var(--su-cream); }
+.su-metric-chart-line {
+    fill: none; stroke: var(--su-primary); stroke-width: 2.5;
+    stroke-linejoin: round; stroke-linecap: round;
+}
+.su-metric-chart-dot { fill: var(--su-primary); }
+
+/* 카드3 도넛 + progress */
+.su-vip-ratio-row { display: flex; align-items: center; gap: 12px; height: 44px; }
+.su-donut { width: 44px; height: 44px; flex-shrink: 0; }
+.su-donut-svg { width: 44px; height: 44px; transform: rotate(-90deg); }
+.su-donut-track { fill: none; stroke: var(--su-gray100); stroke-width: 18; }
+.su-donut-value { fill: none; stroke: var(--su-primary); stroke-width: 18; stroke-linecap: round; }
+.su-vip-ratio-detail { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.su-vip-ratio-label { font-size: 12.5px; font-weight: 800; color: var(--su-primary); }
+.su-vip-ratio-bar { height: 7px; background: var(--su-gray100); border-radius: 999px; overflow: hidden; }
+.su-vip-ratio-bar-fill { height: 100%; background: var(--su-primary); border-radius: 999px; }
+
+/* ── 카드 공통 ─────────────────────────────────────── */
+.su-card {
+    background: var(--su-white);
+    border: 1px solid var(--su-border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: var(--su-shadow);
+    margin-bottom: 14px;
+}
+.su-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 14px;
+}
+.su-section-title { font-size: 15px; font-weight: 800; color: var(--su-black); }
+
+/* ── 등급 사다리 ───────────────────────────────────── */
+.su-ladder { display: flex; gap: 10px; }
+.su-tier-step {
+    flex: 1; border: 1px solid var(--su-border); border-radius: 12px;
+    padding: 12px 8px; display: flex; flex-direction: column; align-items: center;
+    gap: 3px; background: var(--su-soft); opacity: 0.62;
+}
+.su-tier-step--achieved { opacity: 0.9; }
+.su-tier-step--current {
+    opacity: 1; border-color: var(--su-primary); background: var(--su-cream);
+    box-shadow: 0 1px 5px rgba(255,90,31,0.18);
+}
+.su-tier-step--target {
+    opacity: 1; border: 2px dashed var(--su-success); background: var(--su-pale-green);
+}
+.su-step-name { font-weight: 800; font-size: 14px; color: var(--su-black); }
+.su-step-price { font-size: 12px; color: var(--su-gray500); }
+.su-step-tag {
+    font-size: 11px; font-weight: 800; padding: 1px 9px; border-radius: 999px; margin-top: 3px;
+}
+.su-step-tag--cur { background: var(--su-primary); color: #fff; }
+.su-step-tag--tgt { background: var(--su-success); color: #fff; }
+
+/* ── 혜택 갭 chips ─────────────────────────────────── */
+.su-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.su-chip {
+    font-size: 12.5px; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid transparent; white-space: nowrap; font-weight: 600;
+}
+.su-chip--new { background: var(--su-pale-green); color: #1c6b38; border-color: #b7e3c5; }
+.su-chip--held { background: var(--su-soft); color: var(--su-gray500); border-color: var(--su-gray100); }
+.su-chip-icon { font-weight: 800; }
+
+/* ── 준비도 신호 ───────────────────────────────────── */
+.su-signals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.su-signal {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--su-soft); border-radius: 12px; padding: 12px 14px;
+}
+.su-sig-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.su-sig-dot--good { background: var(--su-success); }
+.su-sig-dot--bad { background: var(--su-error); }
+.su-sig-body { display: flex; flex-direction: column; }
+.su-sig-value { font-weight: 800; font-size: 16px; color: var(--su-black); letter-spacing: -0.01em; }
+.su-sig-label { font-size: 12px; color: var(--su-gray500); }
+
+/* 좁은 폭 대응 */
+@media (max-width: 900px) {
+    .su-headline-grid { grid-template-columns: 1fr; }
+    .su-signals { grid-template-columns: 1fr; }
+}

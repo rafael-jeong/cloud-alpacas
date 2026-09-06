@@ -1,0 +1,26 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "bottlenecks" : {
+      "title" : "Bottlenecks",
+      "description" : "병목 항목 목록(캠페인명, 실행 항목명, 상태, 사유, 메모, 마감일, 연체 여부)",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/c__CampaignBottleneckFinder$BottleneckItem"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "totalCount" : {
+      "title" : "Total Count",
+      "description" : "찾은 병목 건수",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

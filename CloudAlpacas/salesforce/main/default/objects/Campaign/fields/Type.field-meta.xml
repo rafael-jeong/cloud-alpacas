@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type</fullName>
+    <inlineHelpText>이 Campaign의 목적을 구분하는 값입니다. 스폰서십 협업은 항상 &apos;Sponsorship&apos;을 사용합니다.</inlineHelpText>
+    <type>Picklist</type>
+</CustomField>

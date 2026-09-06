@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>generationGroupId__c</fullName>
+    <description>Grouping identifier for related generations. Passthrough to GenAIFeedback__dlm.generationGroupId__c.</description>
+    <externalId>false</externalId>
+    <label>Generation Group Id</label>
+    <length>80</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

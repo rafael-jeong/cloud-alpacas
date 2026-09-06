@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BudgetedCost</fullName>
+    <inlineHelpText>이 협업을 실행하기 위해 미리 잡아둔 예산입니다.</inlineHelpText>
+</CustomField>

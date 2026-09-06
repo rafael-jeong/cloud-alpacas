@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>VIP 후보 조건을 충족한 팬의 Membership Campaign 추천 검토를 김매니저에게 Slack으로 알림</description>
+        <name>Send_VIP_Candidate_Slack_Notification</name>
+        <label>Send VIP Candidate Slack Notification</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>SendMessageToSlackChannel</actionName>
+        <actionType>slackFlow</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>channelId</name>
+            <value>
+                <stringValue>C0BKJBEV0L8</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <stringValue>VIP 후보가 발견되었습니다. Membership Campaign 추천을 확인해주세요.</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>SendMessageToSlackChannel</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <description>팬 활동 패턴이 관람 3회 이상 및 총지출 100,000원 이상의 조건을 충족하면 Membership Campaign 추천을 생성하고 담당자에게 알리기 위한 Flow (Fan Value Tier는 자동으로 변경하지 않음)</description>
+    <environments>Default</environments>
+    <interviewLabel>VIP Candidate Detection Flow - V1 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>VIP Candidate Detection Flow -CA</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>VIP 후보 조건을 충족한 팬에게 김매니저가 검토할 Membership Campaign 추천을 대기 상태로 생성</description>
+        <name>Create_Membership_Campaign_Recommendation</name>
+        <label>Create Membership Campaign Recommendation</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Fan__c</field>
+            <value>
+                <elementReference>$Record.Fan__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Reason__c</field>
+            <value>
+                <stringValue>관람 3회 이상 및 총지출 100,000원 이상으로 VIP 후보 조건 충족</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Recommended_Action__c</field>
+            <value>
+                <stringValue>Membership Campaign</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Pending</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Recommendations__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Membership_Campaign_Recommendation</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Games_Attended__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Total_Spend__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <numberValue>100000.0</numberValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Fan__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Fan_Activity_Pattern__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <scheduledPaths>
+            <name>Send_Slack_After_Commit</name>
+            <connector>
+                <targetReference>Send_VIP_Candidate_Slack_Notification</targetReference>
+            </connector>
+            <label>Send Slack After Commit</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>LastModifiedDate</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

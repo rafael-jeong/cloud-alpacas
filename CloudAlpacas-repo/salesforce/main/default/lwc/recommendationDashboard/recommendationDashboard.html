@@ -1,0 +1,44 @@
+<template>
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <div class="dh-title">세그먼트 기회</div>
+            <div class="dh-sub">대상 세그먼트를 확인하고 팬의 Fan 360 데이터를 검토한 뒤 다음 행동을 결정하세요</div>
+        </div>
+        <div class="dashboard-body">
+            <!-- 좌측: 세그먼트 카드 -->
+            <div class="col-left">
+                <c-segment-opportunities
+                    onviewlist={handleViewList}
+                    onfanselect={handleFanSelect}>
+                </c-segment-opportunities>
+            </div>
+            <!-- 우측: 상태에 따라 빈 화면 / 리스트 / 상세 -->
+            <div class="col-right">
+                <template if:true={showEmptyState}>
+                    <div class="demo-notice">
+                        왼쪽에서 <strong>대상 팬 보기</strong> 또는 <strong>대표 팬 검토</strong>를 눌러보세요.
+                    </div>
+                </template>
+
+                <template if:true={showListState}>
+                    <c-segment-fan-list
+                        segment-id={listSegmentId}
+                        apex-class={listApexClass}
+                        title={listTitle}
+                        onselectfan={handleSelectFanFromList}
+                        onclose={handleCloseList}>
+                    </c-segment-fan-list>
+                </template>
+
+                <template if:true={showDetailState}>
+                    <c-fan360-summary
+                        selected-fan-id={selectedFanId}
+                        segment-title={selectedSegmentTitle}
+                        show-back-to-list={showBackToList}
+                        onbacktolist={handleBackToList}>
+                    </c-fan360-summary>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

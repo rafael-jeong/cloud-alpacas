@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>feature__c</fullName>
+    <description>Feature that produced the generation. Passthrough to GenAIFeedback__dlm.feature__c.</description>
+    <externalId>false</externalId>
+    <label>Feature</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Service_Planner</fullName>
+                <default>true</default>
+                <label>Service Planner</label>
+            </value>
+            <value>
+                <fullName>Case_Summarize</fullName>
+                <default>false</default>
+                <label>Case Summarize</label>
+            </value>
+            <value>
+                <fullName>Reply_Recommender</fullName>
+                <default>false</default>
+                <label>Reply Recommender</label>
+            </value>
+            <value>
+                <fullName>Knowledge_Answer</fullName>
+                <default>false</default>
+                <label>Knowledge Answer</label>
+            </value>
+            <value>
+                <fullName>Work_Summaries</fullName>
+                <default>false</default>
+                <label>Work Summaries</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

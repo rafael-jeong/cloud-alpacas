@@ -1,0 +1,16 @@
+.game-detail { padding: 4px 8px 12px; font-family: 'Pretendard', -apple-system, sans-serif; }
+.gd-header { padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; margin-bottom: 20px; }
+.gd-title { font-size: 20px; font-weight: 800; color: #111; }
+.gd-sub { font-size: 13px; color: #999; margin-top: 4px; }
+.gd-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.gd-stat { background: #f7f7f7; border-radius: 10px; padding: 16px; }
+.gd-stat-label { font-size: 12px; color: #999; margin-bottom: 6px; }
+.gd-stat-value { font-size: 22px; font-weight: 800; color: #111; }
+.gd-stat-value--accent { color: #FC4E00; }
+.gd-seat { margin-top: 4px; }
+.gd-seat-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.gd-seat-label { font-size: 13px; font-weight: 700; color: #333; }
+.gd-seat-rate { font-size: 12px; color: #999; }
+.gd-seat-bar { width: 100%; height: 10px; background: #eee; border-radius: 9999px; overflow: hidden; }
+.gd-seat-fill { height: 100%; background: #FC4E00; border-radius: 9999px; transition: width 0.4s; }
+.gd-error { padding: 20px; color: #999; font-size: 13px; text-align: center; }

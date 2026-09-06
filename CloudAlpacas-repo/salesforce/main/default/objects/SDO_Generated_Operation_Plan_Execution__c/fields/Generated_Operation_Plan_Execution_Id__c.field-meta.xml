@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Generated_Operation_Plan_Execution_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>DMO primary key. Maps to Generated_Operation_Plan_Execution2.Generated_Operation_Plan_Execution_Id in the semantic model.</description>
+    <externalId>true</externalId>
+    <label>Generated Operation Plan Execution Id</label>
+    <length>80</length>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

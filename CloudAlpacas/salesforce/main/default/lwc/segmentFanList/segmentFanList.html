@@ -1,0 +1,27 @@
+<template>
+    <lightning-card>
+        <div class="sfl-header">
+            <button class="sfl-back" onclick={handleBack}>← 뒤로</button>
+            <div class="sfl-title">{title}</div>
+        </div>
+
+        <template if:true={hasData}>
+            <div class="sfl-list">
+                <template for:each={fanList} for:item="f">
+                    <div key={f.fanId} class="sfl-row" data-id={f.fanId} onclick={handleSelectFan}>
+                        <div class="sfl-name">{f.fanName}</div>
+                        <div class="sfl-detail">{f.detailText}</div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={isEmptyList}>
+            <div class="sfl-empty">이 세그먼트에 해당하는 팬이 없습니다.</div>
+        </template>
+
+        <template if:true={error}>
+            <div class="sfl-error">목록을 불러오지 못했습니다.</div>
+        </template>
+    </lightning-card>
+</template>
